@@ -1,0 +1,7 @@
+.. _LCNhm-configuration-file:
+
+-----------------------
+LCNhm_configurationfile
+-----------------------
+.. automodule:: LCNhm_configurationfile
+    :members:

@@ -1,0 +1,557 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>LCNhm_configurationfile &#8212; LCN-HippoModel 0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sunpy_style.css" type="text/css" />
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+<script type="text/javascript" src="_static/copybutton.js"></script>
+<script type="text/javascript" src="_static/version.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LCNhm_main" href="index_LCNhm-main.html" />
+    <link rel="prev" title="LCN-HippoModel Documentation" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+<!-- Facebook OpenGraph -->
+<meta property="og:title" content="LCNhm_configurationfile | LCN-HippoModel 0 documentation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/index_LCNhm-configuration-file.html" />
+<meta property="og:image" content="/_static/img/sunpy_icon.svg" />
+<meta property="og:description" content="" />
+<meta property="og:site_name" content="LCN-HippoModel 0 documentation" />
+
+<meta name="robots" content="noindex, nofollow">
+
+  </head>
+  <body>
+
+<div id="navbar"
+  class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://sunpy.org/">
+        LCN-HippoModel</a>
+    </div>
+
+    <div class="collapse navbar-collapse nav-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        
+        
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="module-LCNhm_configurationfile">
+<span id="lcnhm-configurationfile"></span><span id="lcnhm-configuration-file"></span><h1>LCNhm_configurationfile<a class="headerlink" href="#module-LCNhm_configurationfile" title="Permalink to this headline">¶</a></h1>
+<p>The only script thought to be modified. It contains all the simulation parameters:</p>
+<ul class="simple">
+<li><strong>DIR_LOCATION</strong> Directory location where all the model is (eg.: <em>/home/acnavasolive/Projects/LCNhippomodel</em>)</li>
+<li><strong>OPT_FOLDER_NAME</strong> Optional name for the folder in which results are going to be saved (eg.: <em>testing_decreasing_CA3</em>)</li>
+<li><strong>SIMPROP_X</strong> Simulation properties, such the <code class="docutils literal"><span class="pre">SIMPROP_START_TIME</span></code> or the <code class="docutils literal"><span class="pre">SIMPROP_TEMPERATURE</span></code>.</li>
+<li><strong>CELLPROP_X</strong> Artificial cell properties, such <code class="docutils literal"><span class="pre">CELLPROP_MORPHOLOGY</span></code> or <cite>CELLPROP_SYNAPTIC_INPUTS`</cite></li>
+<li><strong>CURRENT_X</strong> Current clamp properties, such the <code class="docutils literal"><span class="pre">CURRENT_DURATION</span></code> or <code class="docutils literal"><span class="pre">CURRENT_AMPLITUDE</span></code>.</li>
+<li><strong>RECORDING_X</strong> Physical magnitudes to be measured and recorded, such <code class="docutils literal"><span class="pre">RECORDING_MAGNITUDE</span></code> or <code class="docutils literal"><span class="pre">RECORDING_LOCATION</span></code>.</li>
+</ul>
+<p>The script in the in format:</p>
+<div class="highlight-python"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="n">DIR_LOCATION</span> <span class="o">=</span> <span class="s1">&#39;/home/Projects/LCNhippomodel&#39;</span>
+<span class="n">OPT_FOLDER_NAME</span> <span class="o">=</span> <span class="s1">&#39;test&#39;</span>
+<span class="n">SIMPROP_THETA_MODE</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">SIMPROP_THETA_PERIOD</span> <span class="o">=</span> <span class="mf">166.</span>
+<span class="c1"># ...</span>
+<span class="n">CELLPROP_INDIVIDUAL</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">CELLPROP_INTRINSIC_IONCHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;iNas&#39;</span><span class="p">,</span><span class="s1">&#39;iA&#39;</span><span class="p">,</span><span class="s1">&#39;iAHPs&#39;</span><span class="p">,</span><span class="s1">&#39;iC&#39;</span><span class="p">,</span><span class="s1">&#39;iCaL&#39;</span><span class="p">,</span><span class="s1">&#39;iCaT&#39;</span><span class="p">,</span><span class="s1">&#39;iKDR&#39;</span><span class="p">,</span><span class="s1">&#39;iM&#39;</span><span class="p">,</span><span class="s1">&#39;iHCN&#39;</span><span class="p">,</span><span class="s1">&#39;iL&#39;</span><span class="p">]</span>
+<span class="c1"># ...</span>
+</pre></div>
+</td></tr></table></div>
+<p>so in order to change the parameters it’s just writing over the default values.</p>
+<p>It’s convenient to read the specifications in the documentation, because error may arise if the format is not the adequate. For instance, if you want to read more about the possible magnitudes that can be recorded, you can to go <a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a>, and type “RECORDING_MAGNITUDE”.</p>
+<div class="section" id="parameters-and-descriptions">
+<h2>Parameters and descriptions<a class="headerlink" href="#parameters-and-descriptions" title="Permalink to this headline">¶</a></h2>
+<dl class="data">
+<dt id="LCNhm_configurationfile.CELLPROP_INDIVIDUAL">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_INDIVIDUAL</code><em class="property"> = 2</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_INDIVIDUAL" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Int</em> –</p>
+<p>Number of the intrinsic-genetic algorithm <cite>individual</cite></p>
+<blockquote>
+<div>Choose between 0,  1,  2,  5,  9,  10,  12,  15,  16,  17,  20,  21</div></blockquote>
+<p>Individuals are defined as factors multiplying the following maximum conductances and axial resistance:</p>
+<blockquote>
+<div>gNas,  gA,  gAHPs,  gC,  gKDR,  gM,  gCaL,  gCaT,  gHCN,  gL (all in S/cm2),  and Ra (Ohm*cm)</div></blockquote>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_INTRINSIC_EXPERIMENT</code><em class="property"> = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Floats</em> –</p>
+<p>Additional factor multiplying the following maximum conductances and axial resistance</p>
+<blockquote>
+<div>gNas,  gA,  gAHPs,  gC,  gKDR,  gM,  gCaL,  gCaT,  gHCN,  gL (all in S/cm2),  and Ra (Ohm*cm)</div></blockquote>
+<p>Default, all factors equal 1. To experiment increasing/decreasing intrinsic properties, change the appropiate element of the list</p>
+<blockquote>
+<div><p>Eg.: Decrease Nas conductance to zero</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CELLPROP_INTRINSIC_EXPERIMENT</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: Increase axial resistance and HCN conductance x2</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CELLPROP_INTRINSIC_EXPERIMENT</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_INTRINSIC_IONCHS</code><em class="property"> = ['iNas', 'iA', 'iAHPs', 'iC', 'iCaL', 'iCaT', 'iKDR', 'iM', 'iHCN', 'iL']</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Strings</em> – Ion channels to include in the cell.</p>
+<p>Default (All) - iA, iAHPs, iC, iCaL, iCaT, iHCN, iKDR, iL, iM, iNas</p>
+<ul class="simple">
+<li>iA - A-type K+ clannels (Cutsuridis2015)</li>
+<li>iAHPs - CA2+ dependent slow AHP K+ conductance (Cutsuridis2015)</li>
+<li>iC - Short-duration [Ca]- and voltage-dependent current (Cutsuridis2015)</li>
+<li>iCaL - L-type calcium channel with low threshold for activation (Muellner2015)</li>
+<li>iCaT - Somatic L-type calcium channel with low threshold for activation (Muellner2015)</li>
+<li>iHCN - Hyperpolarization-activated cyclic nucleotide-gated channels (Sinha2015)</li>
+<li>iKDR - Delay rectifier current (Cutsuridis2015)</li>
+<li>iL - Leak channels (default)</li>
+<li>iM - Slowly activating voltage-dependent potassium current (Migliore2006)</li>
+<li>iNas - Slow sodium channels (Jaslove1992)</li>
+</ul>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CELLPROP_MORPHOLOGY">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_MORPHOLOGY</code><em class="property"> = 'n128'</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_MORPHOLOGY" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>String</em> – Morphology name, choose between <cite>n128</cite>, <cite>sup1</cite>, <cite>n409</cite> or <cite>n127</cite></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_SYNAPTIC_EXPERIMENT</code><em class="property"> = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0]</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Floats</em> –</p>
+<p>Additional factor multiplying the following maximum conductances</p>
+<blockquote>
+<div>gCA3,  gCA2,  gEC3,  gEC2,  gAxo,  gBis,  gCCK,  gIvy,  gNGF,  gOLM,  gPV,  gSCA (uS)</div></blockquote>
+<p>Default, all factors equal 1. To experiment increasing/decreasing synaptic properties, change the appropiate element of the list.</p>
+<blockquote>
+<div><p>Eg.: Superficial pyramidal</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CELLPROP_SYNAPTIC_EXPERIMENT</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: Deep pyramidal</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CELLPROP_SYNAPTIC_EXPERIMENT</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span> <span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: Just excitation</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CELLPROP_SYNAPTIC_EXPERIMENT</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span> <span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_SYNAPTIC_INPUTS</code><em class="property"> = ['CA3', 'CA2', 'EC3', 'EC2', 'Axo', 'Bis', 'CCK', 'Ivy', 'NGF', 'OLM', 'PV', 'SCA']</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Strings</em> – Synaptic inputs to include in the cell (Bezaire2016)</p>
+<p>Default (All) - CA3,  CA2,  EC3,  EC2,  Axo,  Bis,  CCK,  Ivy,  NGF,  OLM,  PV,  SCA</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CURRENT_AMPLITUDES">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CURRENT_AMPLITUDES</code><em class="property"> = [0.0]</em><a class="headerlink" href="#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Floats</em> –</p>
+<p>Amplitudes of each current pulse in nanoampers (nA)</p>
+<blockquote>
+<div><p>Eg.: Three pulses of 0.1, 0.2 and 0.3 nA</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_AMPLITUDES</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: No pulse</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_AMPLITUDES</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Length of <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="LCNhm_configurationfile.CURRENT_AMPLITUDES"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_AMPLITUDES</span></code></a> must be the same to <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DELAY" title="LCNhm_configurationfile.CURRENT_DELAY"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DELAY</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DURATION</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_SECTION</span></code></a> and <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_LOCATION" title="LCNhm_configurationfile.CURRENT_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_LOCATION</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CURRENT_DELAY">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CURRENT_DELAY</code><em class="property"> = [0.0]</em><a class="headerlink" href="#LCNhm_configurationfile.CURRENT_DELAY" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Floats</em> –</p>
+<p>Delays of each current pulse in milliseconds</p>
+<blockquote>
+<div><p>Eg.: Three pulses starting after 500ms of the simulation start, separated 100ms</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DELAY</span> <span class="o">=</span> <span class="p">[</span><span class="mf">500.</span><span class="p">,</span> <span class="mf">600.</span><span class="p">,</span> <span class="mf">700.</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: No pulse</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DELAY</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Length of <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DELAY" title="LCNhm_configurationfile.CURRENT_DELAY"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DELAY</span></code></a> must be the same to <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="LCNhm_configurationfile.CURRENT_AMPLITUDES"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_AMPLITUDES</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DURATION</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_SECTION</span></code></a> and <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_LOCATION" title="LCNhm_configurationfile.CURRENT_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_LOCATION</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CURRENT_DURATION">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CURRENT_DURATION</code><em class="property"> = [0.0]</em><a class="headerlink" href="#LCNhm_configurationfile.CURRENT_DURATION" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Floats</em> –</p>
+<p>Durations of each current pulse in milliseconds</p>
+<blockquote>
+<div><p>Eg.: Three pulses during 50, 100 and 150ms</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DURATION</span> <span class="o">=</span> <span class="p">[</span><span class="mf">50.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="mf">150.</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: No pulse</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DURATION</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Length of <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DURATION</span></code></a> must be the same to <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="LCNhm_configurationfile.CURRENT_AMPLITUDES"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_AMPLITUDES</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DELAY" title="LCNhm_configurationfile.CURRENT_DELAY"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DELAY</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_SECTION</span></code></a> and <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_LOCATION" title="LCNhm_configurationfile.CURRENT_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_LOCATION</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CURRENT_LOCATION">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CURRENT_LOCATION</code><em class="property"> = [0.0]</em><a class="headerlink" href="#LCNhm_configurationfile.CURRENT_LOCATION" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of <code class="docutils literal"><span class="pre">str</span></code> – Location along the defined <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_SECTION</span></code></a> of each current pulse.</p>
+<p>Location is defined between 0 and 1, being 0 the beginning on the <code class="docutils literal"><span class="pre">Section</span></code>, and 1 the end.</p>
+<blockquote>
+<div><p>Eg.: Two pulses of 0.1nA at the beginning and the middle of <code class="docutils literal"><span class="pre">ApicList0</span></code></p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_LOCATION</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_SECTION</span> <span class="o">=</span> <span class="p">[</span><span class="n">ApicList0</span><span class="p">,</span> <span class="n">ApicList0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_AMPLITUDES</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DELAY</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DURATION</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: No pulse (anything)</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_LOCATION</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Length of <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_LOCATION" title="LCNhm_configurationfile.CURRENT_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_LOCATION</span></code></a> must be the same to <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DELAY" title="LCNhm_configurationfile.CURRENT_DELAY"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DELAY</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DURATION</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_SECTION</span></code></a> and <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="LCNhm_configurationfile.CURRENT_AMPLITUDES"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_AMPLITUDES</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CURRENT_SECTION">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CURRENT_SECTION</code><em class="property"> = ['SomaList0']</em><a class="headerlink" href="#LCNhm_configurationfile.CURRENT_SECTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of <code class="docutils literal"><span class="pre">str</span></code> – Sections of each current pulse. Choose between –</p>
+<ul>
+<li><dl class="first docutils">
+<dt>n128</dt>
+<dd><ul class="first last simple">
+<li>Soma: SomaList0, …, SomaList3</li>
+<li>Axon: AxonList0</li>
+<li>Basal dendrites: DendList0, …, DendList30</li>
+<li>Apical dendrites: ApicList0, …, ApicList67</li>
+<li>Somato-apical dendrites: ApicList0</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>sup1</dt>
+<dd><ul class="first last simple">
+<li>Soma: SomaList0</li>
+<li>Axon: AxonList0, AxonList1</li>
+<li>Basal dendrites: DendList0, …, DendList46</li>
+<li>Apical dendrites: ApicList0, …, ApicList48</li>
+<li>Somato-apical dendrites: ApicList4</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>n409</dt>
+<dd><ul class="first last simple">
+<li>Soma: SomaList0, SomaList1</li>
+<li>Axon: AxonList0</li>
+<li>Basal dendrites: DendList0, …, DendList41</li>
+<li>Apical dendrites: ApicList0, …, ApicList40</li>
+<li>Somato-apical dendrites: ApicList0</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>n127</dt>
+<dd><ul class="first simple">
+<li>Soma: SomaList0, …, SomaList4</li>
+<li>Axon: AxonList0</li>
+<li>Basal dendrites: DendList0, …, DendList22</li>
+<li>Apical dendrites: ApicList0, …, ApicList44</li>
+<li>Somato-apical dendrites: ApicList0</li>
+</ul>
+<p>Eg.: Three pulses of 0.1nA, in the middle of <code class="docutils literal"><span class="pre">SomaList0</span></code>, <code class="docutils literal"><span class="pre">ApicList20</span></code> and <code class="docutils literal"><span class="pre">DendList10</span></code>, simultaneouly</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_SECTION</span> <span class="o">=</span> <span class="p">[</span><span class="n">SomaList0</span><span class="p">,</span> <span class="n">ApicList20</span><span class="p">,</span> <span class="n">DendList10</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_LOCATION</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_AMPLITUDES</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DELAY</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_DURATION</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: No pulse (anything)</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CURRENT_SECTION</span> <span class="o">=</span> <span class="p">[</span><span class="n">SomaList0</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Length of <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_SECTION</span></code></a> must be the same to <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DELAY" title="LCNhm_configurationfile.CURRENT_DELAY"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DELAY</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_DURATION</span></code></a>, <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="LCNhm_configurationfile.CURRENT_AMPLITUDES"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_AMPLITUDES</span></code></a> and <a class="reference internal" href="#LCNhm_configurationfile.CURRENT_LOCATION" title="LCNhm_configurationfile.CURRENT_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">CURRENT_LOCATION</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.DIR_LOCATION">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">DIR_LOCATION</code><em class="property"> = '/home/andrea/Projects/HippoModel/LCNhippomodel'</em><a class="headerlink" href="#LCNhm_configurationfile.DIR_LOCATION" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>String</em> – Precise location of the main directory.</p>
+<p>Eg.: /home/acnavasolive/Projects/LCNhippomodel</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.OPT_FOLDER_NAME">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">OPT_FOLDER_NAME</code><em class="property"> = 'test'</em><a class="headerlink" href="#LCNhm_configurationfile.OPT_FOLDER_NAME" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>OPT_FOLDER_NAME</em> – String
+Optional folder name: additional description of the simulation.</p>
+<p>Defined in <a class="reference internal" href="#LCNhm_configurationfile.OPT_FOLDER_NAME" title="LCNhm_configurationfile.OPT_FOLDER_NAME"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.OPT_FOLDER_NAME</span></code></a></p>
+<p>Eg.: <em>first_test</em>, <em>high_CA3</em>, <em>inhibition_suppression</em></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.RECORDING_LOCATION">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">RECORDING_LOCATION</code><em class="property"> = [0.0, 0.2, 0.6]</em><a class="headerlink" href="#LCNhm_configurationfile.RECORDING_LOCATION" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List of Floats</em> – Location along the defined <a class="reference internal" href="#LCNhm_configurationfile.RECORDING_SECTION" title="LCNhm_configurationfile.RECORDING_SECTION"><code class="xref py py-const docutils literal"><span class="pre">RECORDING_SECTION</span></code></a> to be measured and recorded</p>
+<p>Location is defined between 0 and 1, being 0 the beginning on the <code class="docutils literal"><span class="pre">Section</span></code>, and 1 the end.</p>
+<blockquote>
+<div><p>Eg.: Save only membrane potential at soma and at the beginning, middle and end of somato-apical trunk</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_MAGNITUDE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vmem&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_SECTION</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SomaList0&#39;</span><span class="p">,</span><span class="s1">&#39;ApicList0&#39;</span><span class="p">,</span><span class="s1">&#39;ApicList0&#39;</span><span class="p">,</span><span class="s1">&#39;ApicList0&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_LOCATION</span> <span class="o">=</span> <span class="p">[</span>     <span class="mf">0.0</span><span class="p">,</span>        <span class="mf">0.0</span><span class="p">,</span>        <span class="mf">0.5</span><span class="p">,</span>        <span class="mf">1.0</span>  <span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: Save membrane potential, current and position at some basal dendrites</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_MAGNITUDE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vmem&#39;</span><span class="p">,</span><span class="s1">&#39;Imem&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_SECTION</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;DendList0&#39;</span><span class="p">,</span><span class="s1">&#39;DendList3&#39;</span><span class="p">,</span><span class="s1">&#39;DendList5&#39;</span><span class="p">,</span><span class="s1">&#39;DendList10&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_LOCATION</span> <span class="o">=</span> <span class="p">[</span>     <span class="mf">0.3</span><span class="p">,</span>        <span class="mf">0.3</span><span class="p">,</span>        <span class="mf">0.3</span><span class="p">,</span>         <span class="mf">0.3</span>  <span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Lengths of <a class="reference internal" href="#LCNhm_configurationfile.RECORDING_SECTION" title="LCNhm_configurationfile.RECORDING_SECTION"><code class="xref py py-const docutils literal"><span class="pre">RECORDING_SECTION</span></code></a> and <a class="reference internal" href="#LCNhm_configurationfile.RECORDING_LOCATION" title="LCNhm_configurationfile.RECORDING_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">RECORDING_LOCATION</span></code></a> must be the same</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.RECORDING_MAGNITUDE">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">RECORDING_MAGNITUDE</code><em class="property"> = ['Vmem', 'Pos']</em><a class="headerlink" href="#LCNhm_configurationfile.RECORDING_MAGNITUDE" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of <code class="docutils literal"><span class="pre">str</span></code> – Physical magnitudes to be measured and recorded.
+Options are:</p>
+<ul>
+<li><p class="first">Time: Simulation time (ms)</p>
+</li>
+<li><p class="first">Vmem: Membrane potential (mV)</p>
+</li>
+<li><p class="first">Imem: Membrane current (mA/cm2)</p>
+</li>
+<li><p class="first">Pos: Position by three spatial coordinates (us), being <em>z-axis</em> the radial axis</p>
+<blockquote>
+<div><p>Eg.: Save only membrane potential at soma and some points at the somato-apical trunk</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_MAGNITUDE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vmem&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_SITE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SomaList0&#39;</span><span class="p">,</span><span class="s1">&#39;SomApicList1&#39;</span><span class="p">,</span><span class="s1">&#39;SomApicList3&#39;</span><span class="p">,</span><span class="s1">&#39;SomApicList5&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: Save membrane potential, current and position at soma</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_MAGNITUDE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vmem&#39;</span><span class="p">,</span><span class="s1">&#39;Imem&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_SITE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SomaList0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.RECORDING_SECTION">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">RECORDING_SECTION</code><em class="property"> = ['SomaList0', 'ApicList0', 'ApicList0']</em><a class="headerlink" href="#LCNhm_configurationfile.RECORDING_SECTION" title="Permalink to this definition">¶</a></dt>
+<dd><p>List of <code class="docutils literal"><span class="pre">str</span></code> – Sites/Sections to be measured and recorded.
+Options are:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>n128</dt>
+<dd><ul class="first last simple">
+<li>Soma: SomaList0, …, SomaList3</li>
+<li>Axon: AxonList0</li>
+<li>Basal dendrites: DendList0, …, DendList30</li>
+<li>Apical dendrites: ApicList0, …, ApicList67</li>
+<li>Somato-apical dendrites: ApicList0</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>sup1</dt>
+<dd><ul class="first last simple">
+<li>Soma: SomaList0</li>
+<li>Axon: AxonList0, AxonList1</li>
+<li>Basal dendrites: DendList0, …, DendList46</li>
+<li>Apical dendrites: ApicList0, …, ApicList48</li>
+<li>Somato-apical dendrites: ApicList4</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>n409</dt>
+<dd><ul class="first last simple">
+<li>Soma: SomaList0, SomaList1</li>
+<li>Axon: AxonList0</li>
+<li>Basal dendrites: DendList0, …, DendList41</li>
+<li>Apical dendrites: ApicList0, …, ApicList40</li>
+<li>Somato-apical dendrites: ApicList0</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>n127</dt>
+<dd><ul class="first simple">
+<li>Soma: SomaList0, …, SomaList4</li>
+<li>Axon: AxonList0</li>
+<li>Basal dendrites: DendList0, …, DendList22</li>
+<li>Apical dendrites: ApicList0, …, ApicList44</li>
+<li>Somato-apical dendrites: ApicList0</li>
+</ul>
+<p>Eg.: Save only membrane potential at soma and somato-apical trunk</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_MAGNITUDE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vmem&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_SITE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SomaList0&#39;</span><span class="p">,</span><span class="s1">&#39;ApicList0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Eg.: Save membrane potential, current and position at soma</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_MAGNITUDE</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Vmem&#39;</span><span class="p">,</span><span class="s1">&#39;Imem&#39;</span><span class="p">,</span><span class="s1">&#39;Pos&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">RECORDING_SECTION</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;SomaList0&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+</ul>
+<p>Lengths of <a class="reference internal" href="#LCNhm_configurationfile.RECORDING_SECTION" title="LCNhm_configurationfile.RECORDING_SECTION"><code class="xref py py-const docutils literal"><span class="pre">RECORDING_SECTION</span></code></a> and <a class="reference internal" href="#LCNhm_configurationfile.RECORDING_LOCATION" title="LCNhm_configurationfile.RECORDING_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">RECORDING_LOCATION</span></code></a> must be the same</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.SIMPROP_DT">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">SIMPROP_DT</code><em class="property"> = 0.025</em><a class="headerlink" href="#LCNhm_configurationfile.SIMPROP_DT" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Float</em> – Time step in milliseconds</p>
+<p>Default is 0.025 ms</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.SIMPROP_END_TIME">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">SIMPROP_END_TIME</code><em class="property"> = 1660.0</em><a class="headerlink" href="#LCNhm_configurationfile.SIMPROP_END_TIME" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Float</em> – Total duration of the simulation in milliseconds (<code class="docutils literal"><span class="pre">SIMPROP_START_TIME</span></code> + <code class="docutils literal"><span class="pre">SIMPROP_SIM_TIME</span></code>)</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.SIMPROP_SIM_TIME">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">SIMPROP_SIM_TIME</code><em class="property"> = 1660.0</em><a class="headerlink" href="#LCNhm_configurationfile.SIMPROP_SIM_TIME" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Float</em> – Duration of the simulation in milliseconds</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.SIMPROP_START_TIME">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">SIMPROP_START_TIME</code><em class="property"> = 0</em><a class="headerlink" href="#LCNhm_configurationfile.SIMPROP_START_TIME" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Float</em> – Lapse of time before starting the simulation in milliseconds.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">SIMPROP_SIM_TIME must be greater or equal to 1.5 * SIMPROP_THETA_PERIOD,
+if SIMPROP_THETA_MODE is  True</p>
+</div>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.SIMPROP_TEMPERATURE">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">SIMPROP_TEMPERATURE</code><em class="property"> = 34.0</em><a class="headerlink" href="#LCNhm_configurationfile.SIMPROP_TEMPERATURE" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Float</em> – Temperature of simulation (celsius)</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.SIMPROP_THETA_MODE">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">SIMPROP_THETA_MODE</code><em class="property"> = True</em><a class="headerlink" href="#LCNhm_configurationfile.SIMPROP_THETA_MODE" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Boolean</em> – Statement for setting theta state</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.SIMPROP_THETA_PERIOD">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">SIMPROP_THETA_PERIOD</code><em class="property"> = 166.0</em><a class="headerlink" href="#LCNhm_configurationfile.SIMPROP_THETA_PERIOD" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Float</em> – Theta period in milliseconds</p>
+</dd></dl>
+
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  <footer class="footer">
+      <div class="container">
+          <div class="left-footer">
+              <p>
+                  &copy; 2019, Andrea Navas-Olive 
+                  
+              </p>
+          </div>
+          <div class="right-footer">
+              Built with <a href="http://sphinx-doc.org/">Sphinx
+                  1.6.3.</a>
+          </div>
+          <div class="center-footer ">
+              
+          </div>
+      </div>
+  </footer>
+  </body>
+</html>

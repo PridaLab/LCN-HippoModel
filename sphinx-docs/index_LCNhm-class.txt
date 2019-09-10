@@ -1,0 +1,7 @@
+.. _LCNhm-class:
+
+-----------
+LCNhm_class
+-----------
+.. automodule:: LCNhm_class
+    :members:
