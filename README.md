@@ -1,5 +1,6 @@
 # LCN-HippoModel
 
+
 One of the most studied brain rhythm is the **theta rhythm**. Theta (4-12 Hz) is considered
 the “on-line” status of the hippocampus, a highly rhythmic activity that acts as a global 
 synchronizer mechanism for encoding and information processing. During a theta cycle different
@@ -34,3 +35,9 @@ several **intrinsic and synaptic individuals** that would give us heterogenous r
 The LCN-HippoModel offers an easy way to test hypotheses about the role of different synaptic and intrinsic
 factors in the firing dynamics of CA1 pyramidal cells by simply changing experimental parameters defined in the
 LCNhm_configurationfile.py.
+
+# Documentation
+
+Full documentation of the code can be found here:
+
+https://acnavasolive.github.io/LCN-HippoModel/

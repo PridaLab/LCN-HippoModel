@@ -71,10 +71,9 @@ The LCN-HippoModel consists basically in this four scripts:
 All of them are Python code, and use `NEURON <https://www.neuron.yale.edu/neuron/>`_ as an imported library.
 
 There is a fifth script, that plots the morphology of the neuron, the recording sites and the membrane potentials,
-which is quite simple and can be sophisticated if needed.
+which is quite simple and can be sophisticated if needed. More description at the end of this page.
 
 * LCNhm-plot
-
 
 To run the simulation, you must to the open a terminal, go to the
 directory location where all the model is (eg.: */home/Projects/LCNhippomodel*),
@@ -284,7 +283,7 @@ LCN-HippoModel **Functions** File
 
 
 LCN-HippoModel **Plot** File
-------------------------------------
+----------------------------
 
 	This script is quite simple; it takes data from the :data:`LCNhm_main.FolderName` ``LCNhm-results``'s subfolder,
 	and plot it. It shows on the left, the cell morphology and the recording sites, and on the right the membrane

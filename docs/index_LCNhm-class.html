@@ -96,23 +96,19 @@
 <li><strong>CurrentObject</strong>: List of NEURON objects containing all current clamps information</li>
 </ul>
 <p>Access to all these properties is possible by:</p>
-<blockquote>
-<div><div class="highlight-python"><div class="highlight"><pre><span></span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">Eg</span><span class="o">.</span><span class="p">:</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="n">Pyramidal</span> <span class="o">=</span> <span class="n">neuron_class</span><span class="p">(</span><span class="n">MorphoName</span> <span class="o">=</span> <span class="n">CELLPROP_MORPHOLOGY</span><span class="p">,</span>
+             <span class="n">IntrinsicFactors</span> <span class="o">=</span> <span class="n">IntrinsicFactors</span><span class="p">,</span>
+             <span class="n">SynapticFactors</span> <span class="o">=</span> <span class="n">SynapticFactors</span><span class="p">,</span>
+             <span class="n">CurrentFactors</span> <span class="o">=</span> <span class="n">CurrentFactors</span><span class="p">,</span>
+             <span class="n">DirLocation</span> <span class="o">=</span> <span class="n">DIR_LOCATION</span> <span class="p">)</span>
+
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span> <span class="n">Pyramidal</span><span class="o">.</span><span class="n">MorphoName</span>
+
+<span class="n">sup1</span>
 </pre></div>
 </div>
-<p>Eg.:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Pyramidal</span> <span class="o">=</span> <span class="n">neuron_class</span><span class="p">(</span><span class="n">MorphoName</span> <span class="o">=</span> <span class="n">CELLPROP_MORPHOLOGY</span><span class="p">,</span>
-<span class="go">             IntrinsicFactors = IntrinsicFactors,</span>
-<span class="go">             SynapticFactors = SynapticFactors,</span>
-<span class="go">             CurrentFactors = CurrentFactors,</span>
-<span class="go">             DirLocation = DIR_LOCATION )</span>
-</pre></div>
-</div>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">Pyramidal</span><span class="o">.</span><span class="n">MorphoName</span>
-</pre></div>
-</div>
-<p>sup1</p>
-</div></blockquote>
 <p>The way the neuron is built is following these steps:</p>
 <ol class="arabic">
 <li><dl class="first docutils">
