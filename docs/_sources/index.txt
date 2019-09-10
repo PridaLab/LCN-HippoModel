@@ -1,0 +1,306 @@
+.. image:: ./_images/logoLCN.png
+	:target: http://hippo-circuitlab.es/
+
+=============================
+LCN-HippoModel Documentation
+=============================
+
+
+This is the documentation of the 
+`Laboratorio de Circuitos Neuronales (LCN) <http://hippo-circuitlab.es/>`_
+Hippo-Model.
+
+Documentation consists of a brief explanation about the model and its
+purposes, followed by the description of the code.
+
+.. _about-LCNhm:
+
+--------------------
+About LCN-HippoModel
+--------------------
+
+One of the most studied brain rhythm is the **theta rhythm**. Theta (4-12 Hz) is considered
+the “on-line” status of the hippocampus, a highly rhythmic activity that acts as a global 
+synchronizer mechanism for encoding and information processing. During a theta cycle different
+neuronal populations of the hippocampus fire sequentially: each one at
+a distinct preferred phase. Moreover, it has been recently discovered that pyramidal neurons of
+the CA1 hippocampal region, generally considered a homogeneous population, can be classified
+into **deep** and **superficial**: not only each cell type shows a different preferred phase along theta
+cycles, but also a different response in other hippocampal rhythm, sharp wave-ripples, an oscillation
+associated to the consolidation of memory. Understanding how this coordination holds up hippocampal
+functions as spatial navigation and memory, is a major question in the field.
+
+
+The LCN-HippoModel is a **biophysically realistic model** of **CA1 pyramidal cells** aimed to get novel insights on
+firing dynamics in deep and superficial populations during the theta rhythm, and the role of the differential
+contribution of both the excitatory and inhibitory synaptic inputs, and the biophysical intrinsic
+properties.
+
+
+The model includes known **excitatory and inhibitory inputs**, using morphologically reconstructions
+from `NeuroMorpho <http://neuromorpho.org/>`_ (a public database), and a **precise distribution
+of the main ion channels** via the Hodking-Huxley multi-compartment formalism in the
+`NEURON+Python <https://www.neuron.yale.edu/neuron/>`_ platform.
+
+To provide **diversity** among the pyramidal cells, we generated several sets of intrinsic properties and, called 
+**individuals**, through a genetic algorithm (GA). The GA allowed us to identify a
+range of ionic conductances (called genes in the genetic algorithm terminology) that
+target experimental values in each given morphology. So our *individuals* are some of those *set of genes* that
+targeted experimental constraints. This procedure was repeated with the synaptic properties, so we ended up with
+several **intrinsic and synaptic individuals** that would give us heterogenous responses.
+
+
+The LCN-HippoModel offers an easy way to test hypotheses about the role of different synaptic and intrinsic
+factors in the firing dynamics of CA1 pyramidal cells by simply changing experimental parameters defined in the
+:ref:`LCNhm-configuration-file`.
+
+----------------
+Code description
+----------------
+
+The LCN-HippoModel consists basically in this four scripts: 
+
+.. toctree::
+   :maxdepth: 1
+
+   index_LCNhm-configuration-file
+   index_LCNhm-main
+   index_LCNhm-class
+   index_LCNhm-functions
+
+All of them are Python code, and use `NEURON <https://www.neuron.yale.edu/neuron/>`_ as an imported library.
+
+There is a fifth script, that plots the morphology of the neuron, the recording sites and the membrane potentials,
+which is quite simple and can be sophisticated if needed.
+
+* LCNhm-plot
+
+
+To run the simulation, you must to the open a terminal, go to the
+directory location where all the model is (eg.: */home/Projects/LCNhippomodel*),
+and execute the main file:
+
+>>> cd /home/Projects/LCNhippomodel/
+>>> python LCNhm_main.py
+
+
+This will run the simulation with the default parameters. For modification in the simulation properties
+or cell parameters, change the :ref:`LCNhm-configuration-file`, and run again the simulation.
+
+To see the results, just add:
+
+>>> python LCNhm_plot.py D20190730_T1030_First_Test
+
+
+Let's briefly describe them.
+
+LCN-HippoModel **Configuration** File
+-------------------------------------
+:target: :ref:`LCNhm-configuration-file`
+
+
+	It's the only script thought to be modified. It contains all the simulation parameters:
+
+	* **DIR_LOCATION**
+		Directory location where all the model is (eg.: */home/Projects/LCNhippomodel*)
+
+	* **OPT_FOLDER_NAME**
+		Optional name for the folder in which results are going to be saved (eg.: *testing_decreasing_CA3*)
+
+	* **SIMPROP_X**
+		Simulation properties, such the ``SIMPROP_START_TIME`` or the ``SIMPROP_TEMPERATURE``.
+	
+	* **CELLPROP_X**
+		Artificial cell properties. There are subcategories
+		* ``CELLPROP_MORPHOLOGY``: choose the morphological `NeuroMorpho <http://neuromorpho.org/>`_ reconstruction to be used
+		
+		* ``CELLPROP_INDIVIDUAL``: choose the intrinsic individual (from the Genetic Algorithm) to be used (read :ref:`about-LCNhm` for more info)
+		
+		* ``CELLPROP_INTRINSIC_IONCHS``: choose ion channels to set in the cell
+		
+		* ``CELLPROP_INTRINSIC_EXPERIMENT``: indicate multiplicative factors to maximum ion conductances and axial resistance, to make the computational experiments
+		
+		* ``CELLPROP_SYNAPTIC_INPUTS``: choose synaptic inputs to set in the cell
+		
+		* ``CELLPROP_SYNAPTIC_EXPERIMENT``: indicate multiplicative factors to maximum synaptic conductances, to make the computational experiments
+
+	* **CURRENT_X**
+	 	Current clamp properties, such the ``CURRENT_DURATION`` or ``CURRENT_AMPLITUDE``.
+
+	* **RECORDING_X**:
+	 	Physical magnitudes (membrane potential, current potential, etc...) to be measured and recorded, such ``RECORDING_MAGNITUDE`` or ``RECORDING_LOCATION``.
+
+	The script in the in format:
+
+	.. code-block:: python
+		:linenos:
+
+		DIR_LOCATION = '/home/Projects/LCNhippomodel'
+		OPT_FOLDER_NAME = 'test'
+		SIMPROP_THETA_MODE = True
+		SIMPROP_THETA_PERIOD = 166.
+		# ...
+		CELLPROP_INDIVIDUAL = 0
+		CELLPROP_INTRINSIC_IONCHS = ['iNas','iA','iAHPs','iC','iCaL','iCaT','iKDR','iM','iHCN','iL']
+		# ...
+
+	so in order to change the parameters it's just writing over the default values.
+
+	It's convenient to read the specifications in the documentation, because error may arise if the format is not the adequate. For instance, if you want to read more about the possible magnitudes that can be recorded, you can to go :ref:`search`, and type "RECORDING_MAGNITUDE".
+
+
+
+LCN-HippoModel **Main** File
+----------------------------
+:target: :ref:`LCNhm-main`
+
+	It is the main script, the core module of the LCN-HippoModel project.
+	
+	Its function is to:
+
+	1. Load the parameters from the :ref:`LCNhm-configuration-file`
+	
+	#. Create the pyramidal cell according to the configuration parameters through the :ref:`LCNhm-class`
+	
+	#. Run the simulation
+	
+	#. Save the specified physical magnitudes inside ``DIR_LOCATION``/LCNhm-results/``FolderName``
+
+	The ``FolderName`` is define by one of the :ref:`LCNhm-functions`, and looks like:
+
+		``< D(ate)YearMonthDay _ T(ime)HourMinute _ OPT_FOLDER_NAME >``
+
+		Eg.: ./ LCNhm-results / D20190730_T1030_First_Test
+
+	It will add suffixes if the folder already exists:
+
+		Eg.: ./ LCNhm-results / D20190730_T1030_First_Test_001
+		
+		Eg.: ./ LCNhm-results / D20190730_T1030_First_Test_002
+		
+		Eg.: ./ LCNhm-results / D20190730_T1030_First_Test_003
+		
+		Eg.: ./ LCNhm-results / D20190730_T1031_First_Test
+		
+		Eg.: ./ LCNhm-results / D20190730_T1031_First_Test_001
+
+	It will contain:
+
+	* **TimeSpikes.txt**: Time of spikes. If there are no spikes, it will write ``NaN``
+	
+	* **Recordings_Vmem.txt**: Recordings of the membrane potential (if specified in the :ref:`LCNhm-configuration-file`)
+	
+	* **Recordings_Imem.txt**: Recordings of the membrane current (if specified in the :ref:`LCNhm-configuration-file`)
+	
+	* **Recordings_Pos.txt**: Spatial positions (if specified in the :ref:`LCNhm-configuration-file`)
+
+	Membrane potentials (Vmem) and membrane currents (Imem) along time of each recording site
+	is saved in different rows. Position is saved in different rows for each recording site
+
+
+LCN-HippoModel **Neuron-Class** File
+------------------------------------
+:target: :ref:`LCNhm-class`
+
+	This script shapes the class from which our neurons will be built. 
+
+	Neurons will have the following attributes:
+
+	* **MorphoName**: Morphology name, it must be one of the following: `n128`, `sup1`, `n409` or `n127`
+	* **MorphoData**: Dataset containing all the morphological data
+	* **SomaList**: List of NEURON somatic ``Sections``
+	* **AxonList**: List of NEURON axonic ``Sections``
+	* **DendList**: List of NEURON Basal dendritic ``Sections``
+	* **ApicList**: List of NEURON apical dendritic ``Sections``
+	* **SomApicList**: List of somatoapical NEURON apical dendritic ``Sections``
+	* **SectionsList**: List of all NEURON ``Sections``, the union of :attr:`SomaList`, :attr:`AxonList`, :attr:`DendList`, :attr:`ApicList`
+	* **TopolDict**: Dictionary with all topological information in the form
+	* **CurrentObject**: List of NEURON objects containing all current clamps information
+
+
+	Access to all these properties is possible by:
+
+        .. code-block:: python
+
+		Eg.:
+        
+		>>> Pyramidal = neuron_class(MorphoName = CELLPROP_MORPHOLOGY,
+					 IntrinsicFactors = IntrinsicFactors,
+					 SynapticFactors = SynapticFactors,
+					 CurrentFactors = CurrentFactors,
+					 DirLocation = DIR_LOCATION ) 
+
+		>>> print Pyramidal.MorphoName
+
+		sup1
+
+
+	The way the neuron is built is following these steps:
+
+	1. **Import and set morphological data** from ./LCNhm-neurondata/``CELLPROP_MORPHOLOGY``.swc
+		These .swcs cointain information about the 3D structure and width of the cell. 
+
+		You can obtain more morphologies on the public databas `NeuroMorpho <http://neuromorpho.org/>`_
+
+		Classification into four main morphological categories (soma, axon, basal and apical dendrites).
+
+		Every category will be compartimentalized in multiple sections, each of which will have different and specific
+		ion channels, synaptic inputs, diameter, spines, etc... For instance, one apical dendrite that starts on the somatoapical trunk,
+		will be compartimentalized in 10 sections, where the nearest section to the trunk will be thicker than the furthest.
+
+	#. **Set biophysics** (ion channels, membrane capacitance, membrane resistivity, etc...)
+		What ion channels to use can be chosen, as well as a factor to increase/decrease the conductance density.
+
+		See :data:`LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS` and :data:`LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT`: 
+		for further details.
+
+	#. **Set synapses** (excitatory/inhibitory inputs, place of synaptic boutons, maximum conductance, etc...)
+		Synaptic inputs can be chosen, as well as a factor to increase/decrease the maximum conductance.
+
+		See :data:`LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS` and :data:`LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT`: 
+		for further details.
+
+	#. **Set current clamp** (place, duration, intensity, etc...)
+		A square-pulse clamp is set according to parameters written in :ref:`LCNhm-configuration-file`.
+
+		See :data:`LCNhm_configurationfile.CURRENT_DURATION`, :data:`LCNhm_configurationfile.CURRENT_DELAY`, :data:`LCNhm_configurationfile.CURRENT_AMPLITUDES`, :data:`LCNhm_configurationfile.CURRENT_SECTION`, :data:`LCNhm_configurationfile.CURRENT_LOCATION`, for further details.
+
+
+LCN-HippoModel **Functions** File
+---------------------------------
+:target: :ref:`LCNhm-functions`
+
+	This script has all functions except from the :ref:`LCNhm-class` and its methods.
+
+	Within its miscellaneous purposes, there are:
+
+	* One function naming and making the folder: ``make_folder``
+
+	* Functions related to how to distribute intrinsic properties along the cell: ``gradient_membrane_resistance``, ``gradient_spine_scale``, ``gradient_V12`` and ``gradient_gHCN``
+
+	* Function of how to distribute the synaptic releases along a theta cycle: ``synaptic_time_probability_distribution``
+
+	* Functions that record and save data from the simulation: ``recordings``, ``save_spiking_times``, ``save_recordings`` and  ``save_parameters``
+
+
+LCN-HippoModel **Plot** File
+------------------------------------
+
+	This script is quite simple; it takes data from the :data:`LCNhm_main.FolderName` ``LCNhm-results``'s subfolder,
+	and plot it. It shows on the left, the cell morphology and the recording sites, and on the right the membrane
+	potentials. 
+
+	To properly use this, you must type on the terminal ``python LCNhm_plot.py`` followed by the name of the experiment that
+	you want to be plotted (:data:`LCNhm_configurationfile.DIR_LOCATION`). 
+
+	Eg.:
+
+	>>> python LCNhm_plot.py D20190730_T1030_First_Test
+
+------------------
+Indices and tables
+------------------
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`

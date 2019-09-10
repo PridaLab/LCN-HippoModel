@@ -1,0 +1,661 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>LCNhm_class &#8212; LCN-HippoModel 0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sunpy_style.css" type="text/css" />
+
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+<script type="text/javascript" src="_static/copybutton.js"></script>
+<script type="text/javascript" src="_static/version.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="LCNhm_functions" href="index_LCNhm-functions.html" />
+    <link rel="prev" title="LCNhm_main" href="index_LCNhm-main.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+<!-- Facebook OpenGraph -->
+<meta property="og:title" content="LCNhm_class | LCN-HippoModel 0 documentation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="/index_LCNhm-class.html" />
+<meta property="og:image" content="/_static/img/sunpy_icon.svg" />
+<meta property="og:description" content="" />
+<meta property="og:site_name" content="LCN-HippoModel 0 documentation" />
+
+<meta name="robots" content="noindex, nofollow">
+
+  </head>
+  <body>
+
+<div id="navbar"
+  class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://sunpy.org/">
+        LCN-HippoModel</a>
+    </div>
+
+    <div class="collapse navbar-collapse nav-collapse">
+      <ul class="nav navbar-nav navbar-left">
+        
+        
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="module-LCNhm_class">
+<span id="id1"></span><span id="lcnhm-class"></span><h1>LCNhm_class<a class="headerlink" href="#module-LCNhm_class" title="Permalink to this headline">¶</a></h1>
+<p>This script shapes the class from which our neurons will be built.</p>
+<p>Neurons will have the following attributes:</p>
+<ul class="simple">
+<li><strong>MorphoName</strong>: Morphology name, it must be one of the following: <cite>n128</cite>, <cite>sup1</cite>, <cite>n409</cite> or <cite>n127</cite></li>
+<li><strong>MorphoData</strong>: Dataset containing all the morphological data</li>
+<li><strong>SomaList</strong>: List of NEURON somatic <code class="docutils literal"><span class="pre">Sections</span></code></li>
+<li><strong>AxonList</strong>: List of NEURON axonic <code class="docutils literal"><span class="pre">Sections</span></code></li>
+<li><strong>DendList</strong>: List of NEURON Basal dendritic <code class="docutils literal"><span class="pre">Sections</span></code></li>
+<li><strong>ApicList</strong>: List of NEURON apical dendritic <code class="docutils literal"><span class="pre">Sections</span></code></li>
+<li><strong>SomApicList</strong>: List of somatoapical NEURON apical dendritic <code class="docutils literal"><span class="pre">Sections</span></code></li>
+<li><strong>SectionsList</strong>: List of all NEURON <code class="docutils literal"><span class="pre">Sections</span></code>, the union of <code class="xref py py-attr docutils literal"><span class="pre">SomaList</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">AxonList</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">DendList</span></code>, <code class="xref py py-attr docutils literal"><span class="pre">ApicList</span></code></li>
+<li><strong>TopolDict</strong>: Dictionary with all topological information in the form</li>
+<li><strong>CurrentObject</strong>: List of NEURON objects containing all current clamps information</li>
+</ul>
+<p>Access to all these properties is possible by:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>Eg.:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Pyramidal</span> <span class="o">=</span> <span class="n">neuron_class</span><span class="p">(</span><span class="n">MorphoName</span> <span class="o">=</span> <span class="n">CELLPROP_MORPHOLOGY</span><span class="p">,</span>
+<span class="go">             IntrinsicFactors = IntrinsicFactors,</span>
+<span class="go">             SynapticFactors = SynapticFactors,</span>
+<span class="go">             CurrentFactors = CurrentFactors,</span>
+<span class="go">             DirLocation = DIR_LOCATION )</span>
+</pre></div>
+</div>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span> <span class="n">Pyramidal</span><span class="o">.</span><span class="n">MorphoName</span>
+</pre></div>
+</div>
+<p>sup1</p>
+</div></blockquote>
+<p>The way the neuron is built is following these steps:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt><strong>Import and set morphological data</strong> from ./LCNhm-neurondata/<code class="docutils literal"><span class="pre">CELLPROP_MORPHOLOGY</span></code>.swc</dt>
+<dd><p class="first">These .swcs cointain information about the 3D structure and width of the cell.</p>
+<p>You can obtain more morphologies on the public databas <a class="reference external" href="http://neuromorpho.org/">NeuroMorpho</a></p>
+<p>Classification into four main morphological categories (soma, axon, basal and apical dendrites).</p>
+<p class="last">Every category will be compartimentalized in multiple sections, each of which will have different and specific
+ion channels, synaptic inputs, diameter, spines, etc… For instance, one apical dendrite that starts on the somatoapical trunk,
+will be compartimentalized in 10 sections, where the nearest section to the trunk will be thicker than the furthest.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>Set biophysics</strong> (ion channels, membrane capacitance, membrane resistivity, etc…)</dt>
+<dd><p class="first">What ion channels to use can be chosen, as well as a factor to increase/decrease the conductance density.</p>
+<p class="last">See <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS" title="LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS</span></code></a> and <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT" title="LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT</span></code></a>:
+for further details.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>Set synapses</strong> (excitatory/inhibitory inputs, place of synaptic boutons, maximum conductance, etc…)</dt>
+<dd><p class="first">Synaptic inputs can be chosen, as well as a factor to increase/decrease the maximum conductance.</p>
+<p class="last">See <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS" title="LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS</span></code></a> and <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT" title="LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT</span></code></a>:
+for further details.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><strong>Set current clamp</strong> (place, duration, intensity, etc…)</dt>
+<dd><p class="first">A square-pulse clamp is set according to parameters written in <a class="reference internal" href="index_LCNhm-configuration-file.html#lcnhm-configuration-file"><span class="std std-ref">LCNhm_configurationfile</span></a>.</p>
+<p class="last">See <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_DURATION</span></code></a>, <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_DELAY" title="LCNhm_configurationfile.CURRENT_DELAY"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_DELAY</span></code></a>, <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="LCNhm_configurationfile.CURRENT_AMPLITUDES"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_AMPLITUDES</span></code></a>, <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_SECTION</span></code></a>, <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_LOCATION" title="LCNhm_configurationfile.CURRENT_LOCATION"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_LOCATION</span></code></a>, for further details.</p>
+</dd>
+</dl>
+</li>
+</ol>
+<dl class="class">
+<dt id="LCNhm_class.neuron_class">
+<em class="property">class </em><code class="descclassname">LCNhm_class.</code><code class="descname">neuron_class</code><span class="sig-paren">(</span><em>MorphoName</em>, <em>IntrinsicFactors</em>, <em>SynapticFactors</em>, <em>CurrentFactors</em>, <em>DirLocation</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_class.neuron_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Neurons will be built as <cite>neuron_class</cite> objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>MorphoName</strong> (<em>String</em>) – <p>Morphology name, it must be one of the following: <cite>n128</cite>, <cite>sup1</cite>, <cite>n409</cite> or <cite>n127</cite></p>
+<p>Defined in <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_MORPHOLOGY" title="LCNhm_configurationfile.CELLPROP_MORPHOLOGY"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_MORPHOLOGY</span></code></a></p>
+</li>
+<li><strong>IntrinsicFactors</strong> (<em>List</em>) – <p>List of all current properties</p>
+<p>Defined in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.IntrinsicFactors" title="LCNhm_main.IntrinsicFactors"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_main.IntrinsicFactors</span></code></a></p>
+</li>
+<li><strong>SynapticFactors</strong> (<em>List</em>) – <p>List of all intrinsic properties</p>
+<p>Defined in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.SynapticFactors" title="LCNhm_main.SynapticFactors"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_main.SynapticFactors</span></code></a></p>
+</li>
+<li><strong>CurrentFactors</strong> (<em>List</em>) – <p>List of all synaptic properties</p>
+<p>Defined in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.CurrentFactors" title="LCNhm_main.CurrentFactors"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_main.CurrentFactors</span></code></a></p>
+</li>
+<li><strong>DirLocation</strong> (<em>String</em>) – Precise location of the main directory</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>``neuron_class`` object</strong></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Class object</p>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.MorphoName">
+<code class="descname">MorphoName</code><a class="headerlink" href="#LCNhm_class.neuron_class.MorphoName" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>String</em> – Morphology name, it must be one of the following: <cite>n128</cite>, <cite>sup1</cite>, <cite>n409</cite> or <cite>n127</cite></p>
+<p>Defined in <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_MORPHOLOGY" title="LCNhm_configurationfile.CELLPROP_MORPHOLOGY"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_MORPHOLOGY</span></code></a></p>
+<p>It is one of the <a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a> inputs</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.MorphoData">
+<code class="descname">MorphoData</code><a class="headerlink" href="#LCNhm_class.neuron_class.MorphoData" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>csv</em> – Dataset containing all the morphological data</p>
+<dl class="docutils">
+<dt>It describes each morphological point with six parameters:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">Type</span></code>: soma (1), axon (2), Basal (3) or apical (4) dendrite</li>
+<li><code class="docutils literal"><span class="pre">x</span></code> , <code class="docutils literal"><span class="pre">y</span></code> , <code class="docutils literal"><span class="pre">z</span></code>: Spatial coordinates (in micrometers)</li>
+<li><code class="docutils literal"><span class="pre">d</span></code>: diameter (in micrometers)</li>
+<li><code class="docutils literal"><span class="pre">IDFather</span></code>: Line number of the morphological point to which is connected</li>
+</ul>
+</dd>
+</dl>
+<p>See <a class="reference internal" href="#LCNhm_class.neuron_class.make_geometry_dictionary" title="LCNhm_class.neuron_class.make_geometry_dictionary"><code class="xref py py-func docutils literal"><span class="pre">make_geometry_dictionary()</span></code></a> to see how it is used</p>
+<p>Source file in <em>../LCNhm-neurondata/ &lt;MorphoName&gt; .swc</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.SomaList">
+<code class="descname">SomaList</code><a class="headerlink" href="#LCNhm_class.neuron_class.SomaList" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List</em> – List of NEURON somatic <code class="docutils literal"><span class="pre">Sections</span></code></p>
+<p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.AxonList">
+<code class="descname">AxonList</code><a class="headerlink" href="#LCNhm_class.neuron_class.AxonList" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List</em> – List of NEURON axonic <code class="docutils literal"><span class="pre">Sections</span></code></p>
+<p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.DendList">
+<code class="descname">DendList</code><a class="headerlink" href="#LCNhm_class.neuron_class.DendList" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List</em> – List of NEURON Basal dendritic <code class="docutils literal"><span class="pre">Sections</span></code></p>
+<p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.ApicList">
+<code class="descname">ApicList</code><a class="headerlink" href="#LCNhm_class.neuron_class.ApicList" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List</em> – List of NEURON apical dendritic <code class="docutils literal"><span class="pre">Sections</span></code></p>
+<p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.SomApicList">
+<code class="descname">SomApicList</code><a class="headerlink" href="#LCNhm_class.neuron_class.SomApicList" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List</em> – List of somatoapical NEURON apical dendritic <code class="docutils literal"><span class="pre">Sections</span></code></p>
+<p>List can be found in <em>./LCNhm-neurondata/somatoapical_sections.txt</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.SectionsList">
+<code class="descname">SectionsList</code><a class="headerlink" href="#LCNhm_class.neuron_class.SectionsList" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List</em> – List of all NEURON <code class="docutils literal"><span class="pre">Sections</span></code>, the union of <a class="reference internal" href="#LCNhm_class.neuron_class.SomaList" title="LCNhm_class.neuron_class.SomaList"><code class="xref py py-attr docutils literal"><span class="pre">SomaList</span></code></a>, <a class="reference internal" href="#LCNhm_class.neuron_class.AxonList" title="LCNhm_class.neuron_class.AxonList"><code class="xref py py-attr docutils literal"><span class="pre">AxonList</span></code></a>, <a class="reference internal" href="#LCNhm_class.neuron_class.DendList" title="LCNhm_class.neuron_class.DendList"><code class="xref py py-attr docutils literal"><span class="pre">DendList</span></code></a>, <a class="reference internal" href="#LCNhm_class.neuron_class.ApicList" title="LCNhm_class.neuron_class.ApicList"><code class="xref py py-attr docutils literal"><span class="pre">ApicList</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.TopolDict">
+<code class="descname">TopolDict</code><a class="headerlink" href="#LCNhm_class.neuron_class.TopolDict" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>Dictionary</em> –</p>
+<p>Dictionary with all topological information in the form</p>
+<blockquote>
+<div>[ [ SecListName[SecNumber] ,  Who is connected to (IDFather) ,  x ,  y ,  z ] ] , […], … ]</div></blockquote>
+<p>Eg.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#            NEURON object    name           ID of father     x  y  z</span>
+<span class="n">TopolDict</span> <span class="o">=</span> <span class="p">{</span> <span class="n">SomaList</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;SomaList[0]&#39;</span><span class="p">,</span>       <span class="o">-</span><span class="mi">1</span><span class="p">,</span>          <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+              <span class="n">SomaList</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;SomaList[1]&#39;</span><span class="p">,</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">SomaList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+              <span class="o">...</span>
+              <span class="n">ApicList</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;ApicList[9]&#39;</span><span class="p">,</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">ApicList</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">]}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="LCNhm_class.neuron_class.CurrentObject">
+<code class="descname">CurrentObject</code><a class="headerlink" href="#LCNhm_class.neuron_class.CurrentObject" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>List</em> –</p>
+<p>List of NEURON objects containing all current clamps information</p>
+<blockquote>
+<div>[[ Clamp object 1, Duration 1, Delay 1, Amplitude 1 ],
+[  Clamp object 2, Duration 2, Delay 2, Amplitude 2 ], […], …… ]</div></blockquote>
+<p>Eg.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#                   Object                 dur   del  amp</span>
+<span class="n">CurrentObject</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span> <span class="n">NEURON</span> <span class="nb">object</span> <span class="n">at</span> <span class="n">soma</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
+                  <span class="p">[</span> <span class="n">NEURON</span> <span class="nb">object</span> <span class="n">at</span> <span class="n">soma</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span>  <span class="mi">300</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
+                  <span class="o">...</span>
+                  <span class="p">[</span> <span class="n">NEURON</span> <span class="nb">object</span> <span class="n">at</span> <span class="n">soma</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span>   <span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="LCNhm_class.neuron_class.init_sections">
+<code class="descname">init_sections</code><span class="sig-paren">(</span><em>MorphoData</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_class.neuron_class.init_sections" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialization and group in lists of the four main class of sections: soma, axon, Basal (dend) and apical (apic) dendrites</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>MorphoData</strong> (<em>csv</em>) – <p><a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a>’s <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a> attribute: Dataset containing all the morphological data</p>
+<dl class="docutils">
+<dt>It describes each morphological point with six parameters:</dt>
+<dd><ul class="first last simple">
+<li><code class="docutils literal"><span class="pre">Type</span></code>: soma (1), axon (2), Basal (3) or apical (4) dendrite</li>
+<li><code class="docutils literal"><span class="pre">x</span></code> , <code class="docutils literal"><span class="pre">y</span></code> , <code class="docutils literal"><span class="pre">z</span></code>: Spatial coordinates (in micrometers)</li>
+<li><code class="docutils literal"><span class="pre">d</span></code>: diameter (in micrometers)</li>
+<li><code class="docutils literal"><span class="pre">IDFather</span></code>: Line number of the morphological point to which is connected</li>
+</ul>
+</dd>
+</dl>
+<p>See <a class="reference internal" href="#LCNhm_class.neuron_class.make_geometry_dictionary" title="LCNhm_class.neuron_class.make_geometry_dictionary"><code class="xref py py-func docutils literal"><span class="pre">make_geometry_dictionary()</span></code></a> to see how it is used</p>
+<p>Source file in <em>../LCNhm-neurondata/ &lt;MorphoName&gt; .swc</em></p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul>
+<li><strong>SomaList</strong> (<em>List</em>) – class:<cite>neuron_class</cite>’s <a class="reference internal" href="#LCNhm_class.neuron_class.SomaList" title="LCNhm_class.neuron_class.SomaList"><code class="xref py py-attr docutils literal"><span class="pre">SomaList</span></code></a> attribute: List of NEURON somatic <code class="docutils literal"><span class="pre">Sections</span></code><p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</li>
+<li><strong>AxonList</strong> (<em>List</em>) – class:<cite>neuron_class</cite>’s <a class="reference internal" href="#LCNhm_class.neuron_class.AxonList" title="LCNhm_class.neuron_class.AxonList"><code class="xref py py-attr docutils literal"><span class="pre">AxonList</span></code></a> attribute: List of NEURON axonic <code class="docutils literal"><span class="pre">Sections</span></code><p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</li>
+<li><strong>DendList</strong> (<em>List</em>) – class:<cite>neuron_class</cite>’s <a class="reference internal" href="#LCNhm_class.neuron_class.DendList" title="LCNhm_class.neuron_class.DendList"><code class="xref py py-attr docutils literal"><span class="pre">DendList</span></code></a> attribute: List of NEURON Basal dendritic <code class="docutils literal"><span class="pre">Sections</span></code><p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</li>
+<li><strong>ApicList</strong> (<em>List</em>) – class:<cite>neuron_class</cite>’s <a class="reference internal" href="#LCNhm_class.neuron_class.ApicList" title="LCNhm_class.neuron_class.ApicList"><code class="xref py py-attr docutils literal"><span class="pre">ApicList</span></code></a> attribute: List of NEURON apical dendritic <code class="docutils literal"><span class="pre">Sections</span></code><p>The number of <code class="docutils literal"><span class="pre">Sections</span></code> is derived from <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a></p>
+</li>
+<li><strong>SomApicList</strong> (<em>List</em>) – class:<cite>neuron_class</cite>’s <a class="reference internal" href="#LCNhm_class.neuron_class.SomApicList" title="LCNhm_class.neuron_class.SomApicList"><code class="xref py py-attr docutils literal"><span class="pre">SomApicList</span></code></a> attribute: List of somatoapical NEURON apical dendritic <code class="docutils literal"><span class="pre">Sections</span></code>.<p>List can be found in <cite>./LCNhm-neurondata/somatoapical_sections.txt</cite>.</p>
+</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="LCNhm_class.neuron_class.make_geometry_dictionary">
+<code class="descname">make_geometry_dictionary</code><span class="sig-paren">(</span><em>CellPosition</em>, <em>MorphoData</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_class.neuron_class.make_geometry_dictionary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a legible dictionary from the swc <code class="docutils literal"><span class="pre">MorphoData</span></code> database</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>CellPosition</strong> (<em>List of Floats</em>) – <p>List of four elements</p>
+<ul>
+<li>x-, y-, z-: spatial position of the soma (in micrometers)</li>
+<li>angle: self-rotation around its main axis (in degrees)</li>
+</ul>
+</li>
+<li><strong>MorphoData</strong> (<em>csv</em>) – <p><a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a>’s <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a> attribute: Dataset containing all the morphological data</p>
+<dl class="docutils">
+<dt>It describes each morphological point with six parameters:</dt>
+<dd><ul class="first last">
+<li><code class="docutils literal"><span class="pre">Type</span></code>: soma (1), axon (2), Basal (3) or apical (4) dendrite</li>
+<li><code class="docutils literal"><span class="pre">x</span></code> , <code class="docutils literal"><span class="pre">y</span></code> , <code class="docutils literal"><span class="pre">z</span></code>: Spatial coordinates (in micrometers)</li>
+<li><code class="docutils literal"><span class="pre">d</span></code>: diameter (in micrometers)</li>
+<li><code class="docutils literal"><span class="pre">IDFather</span></code>: Line number of the morphological point to which is connected</li>
+</ul>
+</dd>
+</dl>
+<p>See <a class="reference internal" href="#LCNhm_class.neuron_class.make_geometry_dictionary" title="LCNhm_class.neuron_class.make_geometry_dictionary"><code class="xref py py-func docutils literal"><span class="pre">make_geometry_dictionary()</span></code></a> to see how it is used</p>
+<p>Source file in <em>../LCNhm-neurondata/ &lt;MorphoName&gt; .swc</em></p>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><p><strong>TopolDict</strong> –</p>
+<p><a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a>’s <a class="reference internal" href="#LCNhm_class.neuron_class.TopolDict" title="LCNhm_class.neuron_class.TopolDict"><code class="xref py py-attr docutils literal"><span class="pre">TopolDict</span></code></a> attribute: Dictionary with all topological information in the form</p>
+<blockquote>
+<div><p>[ [ SecListName[SecNumber] ,  Who is connected to (IDFather) ,  x ,  y ,  z ] ] , […], … ]</p>
+</div></blockquote>
+<p>Eg.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#            NEURON object    name           ID of father     x  y  z</span>
+<span class="n">TopolDict</span> <span class="o">=</span> <span class="p">{</span> <span class="n">SomaList</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;SomaList[0]&#39;</span><span class="p">,</span>       <span class="o">-</span><span class="mi">1</span><span class="p">,</span>          <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+              <span class="n">SomaList</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;SomaList[1]&#39;</span><span class="p">,</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">SomaList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+              <span class="o">...</span>
+              <span class="n">ApicList</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;ApicList[9]&#39;</span><span class="p">,</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">ApicList</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">]}</span>
+</pre></div>
+</div>
+</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">Dictionary</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="LCNhm_class.neuron_class.set_current_clamp">
+<code class="descname">set_current_clamp</code><span class="sig-paren">(</span><em>CurrentFactors</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_class.neuron_class.set_current_clamp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set current clamp</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>CurrentFactors</strong> (<em>List</em>) – <dl class="docutils">
+<dt><a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a>’s <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.IntrinsicFactors" title="LCNhm_main.IntrinsicFactors"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_main.IntrinsicFactors</span></code></a> input: List of properties for all desired current pulses</dt>
+<dd><ul class="first simple">
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_DURATION</span></code></a></li>
+</ul>
+<p>List of durations of each current pulse in milliseconds</p>
+<ul class="simple">
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_DELAY" title="LCNhm_configurationfile.CURRENT_DELAY"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_DELAY</span></code></a></li>
+</ul>
+<p>List of delays of each current pulse in milliseconds</p>
+<ul class="simple">
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_AMPLITUDES" title="LCNhm_configurationfile.CURRENT_AMPLITUDES"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_AMPLITUDES</span></code></a></li>
+</ul>
+<p>List of amplitudes of each current pulse in nanoampers (nA)</p>
+<ul class="simple">
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_SECTION</span></code></a></li>
+</ul>
+<p>List of sections of each current pulse</p>
+<ul class="simple">
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_LOCATION" title="LCNhm_configurationfile.CURRENT_LOCATION"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_LOCATION</span></code></a></li>
+</ul>
+<p class="last">List of location along the defined <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_SECTION" title="LCNhm_configurationfile.CURRENT_SECTION"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_SECTION</span></code></a> of each current pulse</p>
+</dd>
+</dl>
+<p>Their length must be the same, the number of different current clamps</p>
+<p>Click any of the links for further information</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><strong>CurrentObject</strong> –<p><a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a>’s <a class="reference internal" href="#LCNhm_class.neuron_class.CurrentObject" title="LCNhm_class.neuron_class.CurrentObject"><code class="xref py py-attr docutils literal"><span class="pre">CurrentObject</span></code></a> attribute: List of NEURON objects containing all current clamps information</p>
+<blockquote>
+<div>[[ Clamp object 1, Duration 1, Delay 1, Amplitude 1 ],
+[  Clamp object 2, Duration 2, Delay 2, Amplitude 2 ], […], …… ]</div></blockquote>
+<p>Eg.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#                   Object                 dur   del  amp</span>
+<span class="n">CurrentObject</span> <span class="o">=</span> <span class="p">[</span> <span class="p">[</span> <span class="n">NEURON</span> <span class="nb">object</span> <span class="n">at</span> <span class="n">soma</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span>    <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
+                  <span class="p">[</span> <span class="n">NEURON</span> <span class="nb">object</span> <span class="n">at</span> <span class="n">soma</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span>  <span class="mi">300</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
+                  <span class="o">...</span>
+                  <span class="p">[</span> <span class="n">NEURON</span> <span class="nb">object</span> <span class="n">at</span> <span class="n">soma</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span>   <span class="mi">0</span><span class="p">]]</span>
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">List</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="LCNhm_class.neuron_class.set_geometry">
+<code class="descname">set_geometry</code><span class="sig-paren">(</span><em>TopolDict</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_class.neuron_class.set_geometry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the topology and geometry from the <a class="reference internal" href="#LCNhm_class.neuron_class.TopolDict" title="LCNhm_class.neuron_class.TopolDict"><code class="xref py py-attr docutils literal"><span class="pre">TopolDict</span></code></a> dictionary.</p>
+<ul class="simple">
+<li>First, the beginning of each <code class="docutils literal"><span class="pre">Section</span></code> is connected to the end of its “father” <code class="docutils literal"><span class="pre">Section</span></code>, defined in the <a class="reference internal" href="#LCNhm_class.neuron_class.MorphoData" title="LCNhm_class.neuron_class.MorphoData"><code class="xref py py-attr docutils literal"><span class="pre">MorphoData</span></code></a> csv</li>
+<li>Second, it sets each compartment position and diameter</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>TopolDict</strong> (<em>Dictionary</em>) – <p><a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a>’s <a class="reference internal" href="#LCNhm_class.neuron_class.TopolDict" title="LCNhm_class.neuron_class.TopolDict"><code class="xref py py-attr docutils literal"><span class="pre">TopolDict</span></code></a> attribute: Dictionary with all topological information in the form</p>
+<blockquote>
+<div>[ [ SecListName[SecNumber] ,  Who is connected to (IDFather) ,  x ,  y ,  z ] ] , […], … ]</div></blockquote>
+<p>Eg.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1">#            NEURON object    name           ID of father     x  y  z</span>
+<span class="n">TopolDict</span> <span class="o">=</span> <span class="p">{</span> <span class="n">SomaList</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;SomaList[0]&#39;</span><span class="p">,</span>       <span class="o">-</span><span class="mi">1</span><span class="p">,</span>          <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+              <span class="n">SomaList</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;SomaList[1]&#39;</span><span class="p">,</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">SomaList</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span>
+              <span class="o">...</span>
+              <span class="n">ApicList</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span> <span class="p">[</span><span class="s1">&#39;ApicList[9]&#39;</span><span class="p">,</span> <span class="n">ID</span> <span class="n">of</span> <span class="n">ApicList</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1000</span><span class="p">]}</span>
+</pre></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="LCNhm_class.neuron_class.set_intrinsic_properties">
+<code class="descname">set_intrinsic_properties</code><span class="sig-paren">(</span><em>IntrinsicFactors</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_class.neuron_class.set_intrinsic_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set intrinsic properties: set axial resistance, fill the neuron’s surface with ion channels, and set their dynamical parameters</p>
+<p>Final factors are defined as the multiplication of the <em>individual</em> factor by the <em>experiment</em> factor, so that</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FinalFactors</span> <span class="o">=</span> <span class="n">FactorsIndividual</span> <span class="o">*</span> <span class="n">FactorsExperiment</span>
+<span class="n">fNa</span><span class="p">,</span> <span class="n">fA</span><span class="p">,</span> <span class="n">fAHPs</span><span class="p">,</span> <span class="n">fC</span><span class="p">,</span> <span class="n">fKDR</span><span class="p">,</span> <span class="n">fM</span><span class="p">,</span> <span class="n">fCaL</span><span class="p">,</span> <span class="n">fCaT</span><span class="p">,</span> <span class="n">fHCN</span><span class="p">,</span> <span class="n">fL</span><span class="p">,</span> <span class="n">Ra</span> <span class="o">=</span> <span class="n">FinalFactors</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>It is crucial to set the <em>individual</em> and <em>experiment</em> factors in the required order</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>IntrinsicFactors</strong> (<em>List</em>) – <p><a class="reference internal" href="#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">neuron_class</span></code></a>’s <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.IntrinsicFactors" title="LCNhm_main.IntrinsicFactors"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_main.IntrinsicFactors</span></code></a> input: List of all intrinsic properties</p>
+<ul class="simple">
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS" title="LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS</span></code></a>: Ion channels to include in the cell</li>
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT" title="LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT</span></code></a>: Additional factor multiplying the following maximum conductances and axial resistance</li>
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INDIVIDUAL" title="LCNhm_configurationfile.CELLPROP_INDIVIDUAL"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INDIVIDUAL</span></code></a>: Number of the intrinsic genetic-algorithm <cite>individual</cite></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="LCNhm_class.neuron_class.set_synaptic_properties">
+<code class="descname">set_synaptic_properties</code><span class="sig-paren">(</span><em>SynapticFactors</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_class.neuron_class.set_synaptic_properties" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set synaptic properties written in
+<em>../LCHhm-neurondata/synaptic_properties.txt</em> (Bezaire2016)</p>
+<p>Each line of the file has a list of all the necessary
+properties to configure synapses. Let’s take a line as
+an example:</p>
+<blockquote>
+<div>Eg.: (1) <strong>CA3</strong> (2) <strong>6209</strong> (3) <strong>4</strong> (4) <strong>50</strong> (5) <strong>300</strong> (6) <strong>1.5</strong> (7) <strong>0</strong> (8) <strong>0.5</strong> (9) <strong>3</strong> (10) <strong>0.0002</strong> (11) <strong>0.5</strong> (12) <strong>276</strong> (13) <strong>5</strong> (14) <strong>3</strong></div></blockquote>
+<p>These parameters are, in order:</p>
+<ol class="arabic simple">
+<li><dl class="first docutils">
+<dt>Name of input.</dt>
+<dd>Eg.: CA3</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Number of NumBoutons.</dt>
+<dd>Eg.: 6209</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Type of <code class="docutils literal"><span class="pre">Sections</span></code> where to place NumBoutons.</dt>
+<dd>Eg.: 4, that is apical dendrites</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Minimum distance to soma (positive to apical, negative to Basal).</dt>
+<dd>Eg.: 50 um from soma, that would be proximal SR</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Maximum distance to soma (positive to apical, negative to Basal).</dt>
+<dd>Eg.: 300 um from soma, that would be distal SR</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Firing frequency (Hz).</dt>
+<dd>Eg.: 1.5 Hz</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Reversal potential (mV). Near 0mV would correspond to a glutamatergic input, while a -70mV to a GABAergic one.</dt>
+<dd>Eg.: 0 mV, that is excitatory</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Raising time constant (ms).</dt>
+<dd>Eg.: 0.5 ms</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Decaying time constant (ms).</dt>
+<dd>Eg.: 3.0 ms</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Maximum conductance (microsiemens, uS). This is later multiplied by the <code class="docutils literal"><span class="pre">FinalFactors</span></code> defined from the <code class="docutils literal"><span class="pre">FactorsIndividual</span></code> and the <code class="docutils literal"><span class="pre">Experimental</span></code>.</dt>
+<dd>Eg.: 0.0002 uS</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Basal firing of the synaptic time probability distribution.</dt>
+<dd>Eg.: 0.5</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Theta Phase of maximum spiking probability.</dt>
+<dd>Eg.: 276 deg</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Left-shifting factor of the synaptic time probability distribution (A in the picture).</dt>
+<dd>Eg.: 5</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Right-shifting factor of the synaptic time probability distribution (B in the picture).</dt>
+<dd>Eg.: 3</dd>
+</dl>
+</li>
+</ol>
+<p>The last four parameters define the synaptic time probability distribution
+through the <a class="reference internal" href="index_LCNhm-functions.html#LCNhm_functions.synaptic_time_probability_distribution" title="LCNhm_functions.synaptic_time_probability_distribution"><code class="xref py py-func docutils literal"><span class="pre">LCNhm_functions.synaptic_time_probability_distribution()</span></code></a>,
+an asymmetric gaussian function. An example of the synaptic time probability
+distribution alon 10 theta cycles, and a visual definition of the
+<code class="docutils literal"><span class="pre">Basal</span></code>, <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code> parameters are shown in the image:</p>
+<img alt="_images/SynapseDistribution.png" src="_images/SynapseDistribution.png" />
+<p>In the case that <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.SIMPROP_THETA_MODE" title="LCNhm_configurationfile.SIMPROP_THETA_MODE"><code class="xref py py-func docutils literal"><span class="pre">LCNhm_configurationfile.SIMPROP_THETA_MODE()</span></code></a> is <code class="docutils literal"><span class="pre">False</span></code>,
+the distribution will be homogeneous along time, being (6), the firing frequency,
+the only parameter that will be taken into account.</p>
+<p>So for each excitatory/inhibitory input:</p>
+<ol class="arabic simple">
+<li>An amount of (2) boutons are placed randomly along the neuron surface from (5) to (6)</li>
+<li>Synapse internal dynamics are set given (7), (8), (9), (10) and (11)</li>
+<li>Synapses are activated randomly with the probability distribution given by <a class="reference internal" href="index_LCNhm-functions.html#LCNhm_functions.synaptic_time_probability_distribution" title="LCNhm_functions.synaptic_time_probability_distribution"><code class="xref py py-func docutils literal"><span class="pre">LCNhm_functions.synaptic_time_probability_distribution()</span></code></a></li>
+</ol>
+<p>Final factors are defined as the multiplication of the <em>individual</em> factor by the <em>experiment</em> factor, so that</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">FinalFactors</span> <span class="o">=</span> <span class="n">FactorsIndividual</span> <span class="o">*</span> <span class="n">FactorsExperiment</span>
+<span class="n">fNa</span><span class="p">,</span> <span class="n">fA</span><span class="p">,</span> <span class="n">fAHPs</span><span class="p">,</span> <span class="n">fC</span><span class="p">,</span> <span class="n">fKDR</span><span class="p">,</span> <span class="n">fM</span><span class="p">,</span> <span class="n">fCaL</span><span class="p">,</span> <span class="n">fCaT</span><span class="p">,</span> <span class="n">fHCN</span><span class="p">,</span> <span class="n">fL</span><span class="p">,</span> <span class="n">Ra</span> <span class="o">=</span> <span class="n">FinalFactors</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>It is crucial to set the <em>individual</em> and <em>experiment</em> factors in the required order</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>SynapticFactors</strong> (<em>List</em>) – <ul class="simple">
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS" title="LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS</span></code></a> : Synaptic inputs to include in the cell</li>
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT" title="LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT</span></code></a> : Additional factor multiplying the following maximum conductances</li>
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.SIMPROP_THETA_MODE" title="LCNhm_configurationfile.SIMPROP_THETA_MODE"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.SIMPROP_THETA_MODE</span></code></a> : Set theta (<code class="docutils literal"><span class="pre">True</span></code>) or not (<code class="docutils literal"><span class="pre">False</span></code>)</li>
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.SIMPROP_THETA_PERIOD" title="LCNhm_configurationfile.SIMPROP_THETA_PERIOD"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.SIMPROP_THETA_PERIOD</span></code></a> : Theta period in milliseconds</li>
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.SIMPROP_START_TIME" title="LCNhm_configurationfile.SIMPROP_START_TIME"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.SIMPROP_START_TIME</span></code></a> : Lapse of time before starting the simulation in milliseconds</li>
+<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.SIMPROP_END_TIME" title="LCNhm_configurationfile.SIMPROP_END_TIME"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.SIMPROP_END_TIME</span></code></a> : Total duration of the simulation in milliseconds (<a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.SIMPROP_START_TIME" title="LCNhm_configurationfile.SIMPROP_START_TIME"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.SIMPROP_START_TIME</span></code></a> + <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.SIMPROP_SIM_TIME" title="LCNhm_configurationfile.SIMPROP_SIM_TIME"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.SIMPROP_SIM_TIME</span></code></a>)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><ul>
+<li><strong>SynDict</strong> (<em>Dictionary</em>) – Dictionary with information of all synapses. For each input in <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS" title="LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS</span></code></a>,<ul class="simple">
+<li><code class="docutils literal"><span class="pre">SynSection</span></code>: NEURON <code class="docutils literal"><span class="pre">Section</span></code> and <code class="docutils literal"><span class="pre">Location</span></code> for each bouton</li>
+<li><code class="docutils literal"><span class="pre">SynPlaces</span></code>: Three spatial coordinates for each bouton</li>
+<li><code class="docutils literal"><span class="pre">SynTimes</span></code>: Time releases for each bouton</li>
+</ul>
+<p>is stored</p>
+</li>
+<li><strong>SynObjects</strong> (<em>List</em>) – NEURON synaptic <code class="docutils literal"><span class="pre">Exp2Syn</span></code> objects (go to <a class="reference external" href="https://www.neuron.yale.edu/neuron/static/py_doc/modelspec/programmatic/mechanisms/mech.html?highlight=exp2syn#Exp2Syn">Exp2Syn</a> for more information)</li>
+<li><strong>NetConObjects</strong> (<em>List</em>) – NEURON synaptic <code class="docutils literal"><span class="pre">NetCon</span></code> objects (go to <a class="reference external" href="https://www.neuron.yale.edu/neuron/static/py_doc/modelspec/programmatic/network/netcon.html?highlight=netcon">NetCon</a> for more information)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+  <footer class="footer">
+      <div class="container">
+          <div class="left-footer">
+              <p>
+                  &copy; 2019, Andrea Navas-Olive 
+                  
+              </p>
+          </div>
+          <div class="right-footer">
+              Built with <a href="http://sphinx-doc.org/">Sphinx
+                  1.6.3.</a>
+          </div>
+          <div class="center-footer ">
+              
+          </div>
+      </div>
+  </footer>
+  </body>
+</html>
