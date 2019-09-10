@@ -5,10 +5,11 @@
 LCN-HippoModel Documentation
 =============================
 
-
-This is the documentation of the 
+This is the documentation of the
 `Laboratorio de Circuitos Neuronales (LCN) <http://hippo-circuitlab.es/>`_
-Hippo-Model.
+Hippo-Model. 
+
+The complete code is available `here <https://github.com/acnavasolive/LCN-HippoModel/>`_ for free usage.
 
 Documentation consists of a brief explanation about the model and its
 purposes, followed by the description of the code.
