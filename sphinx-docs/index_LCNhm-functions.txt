@@ -1,7 +1,0 @@
-.. _LCNhm-functions:
-
----------------
-LCNhm_functions
----------------
-.. automodule:: LCNhm_functions
-    :members:
