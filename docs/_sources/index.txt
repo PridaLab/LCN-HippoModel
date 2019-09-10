@@ -26,7 +26,7 @@ synchronizer mechanism for encoding and information processing. During a theta c
 neuronal populations of the hippocampus fire sequentially: each one at
 a distinct preferred phase. Moreover, it has been recently discovered that pyramidal neurons of
 the CA1 hippocampal region, generally considered a homogeneous population, can be classified
-into **deep** and **superficial**: not only each cell type shows a different preferred phase along theta
+into `deep and superficial <https://www.sciencedirect.com/science/article/pii/S0959438817302994?via%3Dihub>`_: not only each cell type shows a different preferred phase along theta
 cycles, but also a different response in other hippocampal rhythm, sharp wave-ripples, an oscillation
 associated to the consolidation of memory. Understanding how this coordination holds up hippocampal
 functions as spatial navigation and memory, is a major question in the field.
@@ -39,7 +39,7 @@ properties.
 
 
 The model includes known **excitatory and inhibitory inputs**, using morphologically reconstructions
-from `NeuroMorpho <http://neuromorpho.org/>`_ (a public database), and a **precise distribution
+from `NeuroMorpho <http://neuromorpho.org/NeuroMorpho_ArchiveLinkout.jsp?ARCHIVE=prida&DATE=2017-03-30>`_ (a public database), and a **precise distribution
 of the main ion channels** via the Hodking-Huxley multi-compartment formalism in the
 `NEURON+Python <https://www.neuron.yale.edu/neuron/>`_ platform.
 
