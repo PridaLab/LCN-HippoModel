@@ -103,7 +103,7 @@
 <span class="n">SIMPROP_THETA_MODE</span> <span class="o">=</span> <span class="bp">True</span>
 <span class="n">SIMPROP_THETA_PERIOD</span> <span class="o">=</span> <span class="mf">166.</span>
 <span class="c1"># ...</span>
-<span class="n">CELLPROP_INDIVIDUAL</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">CELLPROP_INTRINSIC</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">CELLPROP_INTRINSIC_IONCHS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;iNas&#39;</span><span class="p">,</span><span class="s1">&#39;iA&#39;</span><span class="p">,</span><span class="s1">&#39;iAHPs&#39;</span><span class="p">,</span><span class="s1">&#39;iC&#39;</span><span class="p">,</span><span class="s1">&#39;iCaL&#39;</span><span class="p">,</span><span class="s1">&#39;iCaT&#39;</span><span class="p">,</span><span class="s1">&#39;iKDR&#39;</span><span class="p">,</span><span class="s1">&#39;iM&#39;</span><span class="p">,</span><span class="s1">&#39;iHCN&#39;</span><span class="p">,</span><span class="s1">&#39;iL&#39;</span><span class="p">]</span>
 <span class="c1"># ...</span>
 </pre></div>
@@ -113,15 +113,34 @@
 <div class="section" id="parameters-and-descriptions">
 <h2>Parameters and descriptions<a class="headerlink" href="#parameters-and-descriptions" title="Permalink to this headline">¶</a></h2>
 <dl class="data">
-<dt id="LCNhm_configurationfile.CELLPROP_INDIVIDUAL">
-<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_INDIVIDUAL</code><em class="property"> = 2</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_INDIVIDUAL" title="Permalink to this definition">¶</a></dt>
+<dt id="LCNhm_configurationfile.CELLPROP_INTRINSIC">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_INTRINSIC</code><em class="property"> = 2</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_INTRINSIC" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Int</em> –</p>
 <p>Number of the intrinsic-genetic algorithm <cite>individual</cite></p>
 <blockquote>
-<div>Choose between 0,  1,  2,  5,  9,  10,  12,  15,  16,  17,  20,  21</div></blockquote>
+<div>Choose between 0, 1, 2, …, 12</div></blockquote>
 <p>Individuals are defined as factors multiplying the following maximum conductances and axial resistance:</p>
 <blockquote>
 <div>gNas,  gA,  gAHPs,  gC,  gKDR,  gM,  gCaL,  gCaT,  gHCN,  gL (all in S/cm2),  and Ra (Ohm*cm)</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Not all combinations of intrinsic and synaptic <cite>individuals</cite> are validated
+Please use one the following combinations:</p>
+<ul class="last simple">
+<li><cite>CELLPROP_INTRINSIC = 1</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {1}</li>
+<li><cite>CELLPROP_INTRINSIC = 2</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {1, 3}</li>
+<li><cite>CELLPROP_INTRINSIC = 3</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {0, 1}</li>
+<li><cite>CELLPROP_INTRINSIC = 4</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {1, 3}</li>
+<li><cite>CELLPROP_INTRINSIC = 5</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {3}</li>
+<li><cite>CELLPROP_INTRINSIC = 6</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {0}</li>
+<li><cite>CELLPROP_INTRINSIC = 7</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {0, 3}</li>
+<li><cite>CELLPROP_INTRINSIC = 8</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {3}</li>
+<li><cite>CELLPROP_INTRINSIC = 9</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {0, 1}</li>
+<li><cite>CELLPROP_INTRINSIC = 10</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {0, 1, 3}</li>
+<li><cite>CELLPROP_INTRINSIC = 11</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {1}</li>
+<li><cite>CELLPROP_INTRINSIC = 12</cite>: <cite>CELLPROP_SYNAPTIC</cite> from {0, 1}</li>
+</ul>
+</div>
 </dd></dl>
 
 <dl class="data">
@@ -166,7 +185,26 @@
 <dl class="data">
 <dt id="LCNhm_configurationfile.CELLPROP_MORPHOLOGY">
 <code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_MORPHOLOGY</code><em class="property"> = 'n128'</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_MORPHOLOGY" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>String</em> – Morphology name, choose between <cite>n128</cite>, <cite>sup1</cite>, <cite>n409</cite> or <cite>n127</cite></p>
+<dd><p><em>String</em> – Morphology name, choose between <cite>n128</cite>, <cite>sup1</cite> or <cite>n409</cite></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="LCNhm_configurationfile.CELLPROP_SYNAPTIC">
+<code class="descclassname">LCNhm_configurationfile.</code><code class="descname">CELLPROP_SYNAPTIC</code><em class="property"> = 0</em><a class="headerlink" href="#LCNhm_configurationfile.CELLPROP_SYNAPTIC" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>String</em> –</p>
+<p>Number of the synaptic-genetic algorithm <cite>individual</cite></p>
+<blockquote>
+<div>Choose between 0, 1, 2, 3</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Not all combinations of synaptic and intrinsic <cite>individuals</cite> are validated
+Please use one the following combinations:</p>
+<ul class="last simple">
+<li><cite>CELLPROP_SYNAPTIC = 0</cite>: <cite>CELLPROP_INTRINSIC</cite> from {3, 6, 7, 9, 10, 12}</li>
+<li><cite>CELLPROP_SYNAPTIC = 1</cite>: <cite>CELLPROP_INTRINSIC</cite> from {1, 2, 3, 4, 9, 10, 11, 12}</li>
+<li><cite>CELLPROP_SYNAPTIC = 3</cite>: <cite>CELLPROP_INTRINSIC</cite> from {2, 4, 5, 7, 8, 10}</li>
+</ul>
+</div>
 </dd></dl>
 
 <dl class="data">

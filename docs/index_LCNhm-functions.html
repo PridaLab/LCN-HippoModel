@@ -255,7 +255,7 @@ capacitance and the membrane resistance must be multiplied by a factor SS</p>
 
 <dl class="function">
 <dt id="LCNhm_functions.save_parameters">
-<code class="descclassname">LCNhm_functions.</code><code class="descname">save_parameters</code><span class="sig-paren">(</span><em>FolderName</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_functions.save_parameters" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">LCNhm_functions.</code><code class="descname">save_parameters</code><span class="sig-paren">(</span><em>Parameters</em>, <em>FolderName</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_functions.save_parameters" title="Permalink to this definition">¶</a></dt>
 <dd><p>Values of the <a class="reference internal" href="index_LCNhm-configuration-file.html#lcnhm-configuration-file"><span class="std std-ref">LCNhm_configurationfile</span></a> parameters are written in Parameters.txt
 in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.FolderName" title="LCNhm_main.FolderName"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_main.FolderName</span></code></a> subfolder.</p>
 <blockquote>
@@ -271,7 +271,7 @@ in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.FolderNa
 <span class="gp">&gt;&gt;&gt; </span>  <span class="n">SIMPROP_DT</span> <span class="mf">0.025000</span>
 <span class="gp">&gt;&gt;&gt; </span>  <span class="n">SIMPROP_TEMPERATURE</span> <span class="mf">34.000000</span>
 <span class="gp">&gt;&gt;&gt; </span>  <span class="n">CELLPROP_MORPHOLOGY</span> <span class="n">n128</span>
-<span class="gp">&gt;&gt;&gt; </span>  <span class="n">CELLPROP_INDIVIDUAL</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span>  <span class="n">CELLPROP_INTRINSIC</span> <span class="mi">0</span>
 <span class="gp">&gt;&gt;&gt; </span>  <span class="n">CELLPROP_INTRINSIC_IONCHS</span> <span class="n">iNas</span> <span class="n">iA</span> <span class="n">iAHPs</span> <span class="n">iC</span> <span class="n">iCaL</span> <span class="n">iCaT</span> <span class="n">iKDR</span> <span class="n">iM</span> <span class="n">iHCN</span> <span class="n">iL</span>
 <span class="gp">&gt;&gt;&gt; </span>  <span class="n">CELLPROP_INTRINSIC_EXPERIMENT</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span> <span class="mf">1.000000</span>
 <span class="gp">&gt;&gt;&gt; </span>  <span class="n">CELLPROP_SYNAPTIC_INPUTS</span> <span class="n">CA3</span> <span class="n">CA2</span> <span class="n">EC3</span> <span class="n">EC2</span> <span class="n">Axo</span> <span class="n">Bis</span> <span class="n">CCK</span> <span class="n">Ivy</span> <span class="n">NGF</span> <span class="n">OLM</span> <span class="n">PV</span> <span class="n">SCA</span>
@@ -291,7 +291,11 @@ in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.FolderNa
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>FolderName</strong> (<em>String</em>) – Name of folder where recordings will be saved, output from <a class="reference internal" href="#LCNhm_functions.make_folder" title="LCNhm_functions.make_folder"><code class="xref py py-func docutils literal"><span class="pre">make_folder()</span></code></a></td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>Parameters</strong> (<em>List</em>) – List with all <a class="reference internal" href="index_LCNhm-configuration-file.html#lcnhm-configuration-file"><span class="std std-ref">LCNhm_configurationfile</span></a> parameters</li>
+<li><strong>FolderName</strong> (<em>String</em>) – Name of folder where recordings will be saved, output from <a class="reference internal" href="#LCNhm_functions.make_folder" title="LCNhm_functions.make_folder"><code class="xref py py-func docutils literal"><span class="pre">make_folder()</span></code></a></li>
+</ul>
+</td>
 </tr>
 </tbody>
 </table>
@@ -299,7 +303,7 @@ in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.FolderNa
 
 <dl class="function">
 <dt id="LCNhm_functions.save_recordings">
-<code class="descclassname">LCNhm_functions.</code><code class="descname">save_recordings</code><span class="sig-paren">(</span><em>Recordings</em>, <em>FolderName</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_functions.save_recordings" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">LCNhm_functions.</code><code class="descname">save_recordings</code><span class="sig-paren">(</span><em>Recordings</em>, <em>FolderName</em>, <em>RECORDING_MAGNITUDE</em><span class="sig-paren">)</span><a class="headerlink" href="#LCNhm_functions.save_recordings" title="Permalink to this definition">¶</a></dt>
 <dd><p>Recordings of the magnitudes selected in <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.RECORDING_MAGNITUDE" title="LCNhm_configurationfile.RECORDING_MAGNITUDE"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.RECORDING_MAGNITUDE</span></code></a>
 are saved in a txt file in <a class="reference internal" href="index_LCNhm-main.html#LCNhm_main.FolderName" title="LCNhm_main.FolderName"><code class="xref py py-data docutils literal"><span class="pre">LCNhm_main.FolderName</span></code></a> subfolder, as:</p>
 <blockquote>

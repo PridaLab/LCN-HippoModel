@@ -115,7 +115,7 @@ is saved in different rows. Position is saved in different rows for each recordi
 <h2>Functions and descriptions<a class="headerlink" href="#functions-and-descriptions" title="Permalink to this headline">¶</a></h2>
 <dl class="data">
 <dt id="LCNhm_main.CurrentFactors">
-<code class="descclassname">LCNhm_main.</code><code class="descname">CurrentFactors</code><em class="property"> = [[0.0], [0.0], [0.0], ['SomaList0'], [0]]</em><a class="headerlink" href="#LCNhm_main.CurrentFactors" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">LCNhm_main.</code><code class="descname">CurrentFactors</code><em class="property"> = [[0.0], [0.0], [0.0], ['SomaList0'], [0.0]]</em><a class="headerlink" href="#LCNhm_main.CurrentFactors" title="Permalink to this definition">¶</a></dt>
 <dd><p>List of properties for all desired current pulses, packed to be a one of the <a class="reference internal" href="index_LCNhm-class.html#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">LCNhm_class.neuron_class</span></code></a>’s inputs</p>
 <ul class="simple">
 <li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CURRENT_DURATION" title="LCNhm_configurationfile.CURRENT_DURATION"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CURRENT_DURATION</span></code></a> : List of durations of each current pulse in milliseconds</li>
@@ -130,18 +130,18 @@ is saved in different rows. Position is saved in different rows for each recordi
 
 <dl class="data">
 <dt id="LCNhm_main.FolderName">
-<code class="descclassname">LCNhm_main.</code><code class="descname">FolderName</code><em class="property"> = '/home/andrea/Projects/HippoModel/LCNhippomodel/LCNhm-results/D20190910_T1152_test_001'</em><a class="headerlink" href="#LCNhm_main.FolderName" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">LCNhm_main.</code><code class="descname">FolderName</code><em class="property"> = '/home/andrea/Projects/HippoModel/LCNhippomodel/LCNhm-results/D20200219_T1338_test'</em><a class="headerlink" href="#LCNhm_main.FolderName" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>String</em> – Full name of folder where results will be saved</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="LCNhm_main.IntrinsicFactors">
-<code class="descclassname">LCNhm_main.</code><code class="descname">IntrinsicFactors</code><em class="property"> = [['iNas', 'iA', 'iAHPs', 'iC', 'iCaL', 'iCaT', 'iKDR', 'iM', 'iHCN', 'iL'], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], 0]</em><a class="headerlink" href="#LCNhm_main.IntrinsicFactors" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">LCNhm_main.</code><code class="descname">IntrinsicFactors</code><em class="property"> = [['iNas', 'iA', 'iAHPs', 'iC', 'iCaL', 'iCaT', 'iKDR', 'iM', 'iHCN', 'iL'], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], 2]</em><a class="headerlink" href="#LCNhm_main.IntrinsicFactors" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>List</em> – List of all intrinsic properties, packed to be a one of the <a class="reference internal" href="index_LCNhm-class.html#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">LCNhm_class.neuron_class</span></code></a>’s inputs</p>
 <ul class="simple">
 <li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS" title="LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS</span></code></a>: Ion channels to include in the cell</li>
 <li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT" title="LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT</span></code></a>: Additional factor multiplying the following maximum conductances and axial resistance</li>
-<li><a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_INDIVIDUAL" title="LCNhm_configurationfile.CELLPROP_INDIVIDUAL"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INDIVIDUAL</span></code></a>: Number of the intrinsic genetic-algorithm <cite>individual</cite></li>
+<li><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_INDIVIDUAL</span></code>: Number of the intrinsic genetic-algorithm <cite>individual</cite></li>
 </ul>
 <p>Click any of the links for further information</p>
 </dd></dl>
@@ -154,14 +154,14 @@ is saved in different rows. Position is saved in different rows for each recordi
 
 <dl class="data">
 <dt id="LCNhm_main.Recordings">
-<code class="descclassname">LCNhm_main.</code><code class="descname">Recordings</code><em class="property"> = {'Vmem': {'SomaList0_000': Vector[4], 'ApicList0_080': Vector[5]}, 'Pos': {'SomaList0_000': [-0.3199999928474426, -32.43199920654297, -0.550000011920929, 8.430000305175781], 'ApicList0_080': [-101.5999984741211, 62.702999114990234, 548.5499877929688, 0.7099999785423279]}, 'Time': Vector[3]}</em><a class="headerlink" href="#LCNhm_main.Recordings" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">LCNhm_main.</code><code class="descname">Recordings</code><em class="property"> = {'Vmem': {'ApicList0_020': Vector[5], 'SomaList0_000': Vector[4], 'ApicList0_060': Vector[6]}, 'Pos': {'ApicList0_020': [15.890000343322754, -45.37799835205078, 172.83999633789062, 0.9200000166893005], 'SomaList0_000': [-0.3199999928474426, -32.43199920654297, -0.550000011920929, 8.430000305175781], 'ApicList0_060': [-76.08000183105469, -15.107999801635742, 464.25, 0.7799999713897705]}, 'Time': Vector[3]}</em><a class="headerlink" href="#LCNhm_main.Recordings" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>Dictionary</em> – Ouput from <code class="xref py py-func docutils literal"><span class="pre">LCNhm_function.recordings()</span></code>
 with recordings of the <a class="reference internal" href="index_LCNhm-class.html#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">LCNhm_class.neuron_class</span></code></a> Pyramidal</p>
 </dd></dl>
 
 <dl class="data">
 <dt id="LCNhm_main.SynapticFactors">
-<code class="descclassname">LCNhm_main.</code><code class="descname">SynapticFactors</code><em class="property"> = [['CA3', 'CA2', 'EC3', 'EC2', 'Axo', 'Bis', 'CCK', 'Ivy', 'NGF', 'OLM', 'PV', 'SCA'], [4.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0], True, 166.0, 0, 2490.0, 0.025]</em><a class="headerlink" href="#LCNhm_main.SynapticFactors" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">LCNhm_main.</code><code class="descname">SynapticFactors</code><em class="property"> = [['CA3', 'CA2', 'EC3', 'EC2', 'Axo', 'Bis', 'CCK', 'Ivy', 'NGF', 'OLM', 'PV', 'SCA'], [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0], True, 166.0, 0, 1660.0, 0.025, 0]</em><a class="headerlink" href="#LCNhm_main.SynapticFactors" title="Permalink to this definition">¶</a></dt>
 <dd><p><em>List</em> – List of all synaptic properties, packed to be a one of the <a class="reference internal" href="index_LCNhm-class.html#LCNhm_class.neuron_class" title="LCNhm_class.neuron_class"><code class="xref py py-class docutils literal"><span class="pre">LCNhm_class.neuron_class</span></code></a>’s inputs
 * <a class="reference internal" href="index_LCNhm-configuration-file.html#LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS" title="LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS"><code class="xref py py-const docutils literal"><span class="pre">LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS</span></code></a> : Synaptic inputs to include in the cell</p>
 <ul class="simple">

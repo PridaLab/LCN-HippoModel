@@ -21,7 +21,7 @@ About LCN-HippoModel
 --------------------
 
 One of the most studied brain rhythm is the **theta rhythm**. Theta (4-12 Hz) is considered
-the “on-line” status of the hippocampus, a highly rhythmic activity that acts as a global 
+the “on-line” status of the hippocampus, a highly rhythmic activity that acts as a 
 synchronizer mechanism for encoding and information processing. During a theta cycle different
 neuronal populations of the hippocampus fire sequentially: each one at
 a distinct preferred phase. Moreover, it has been recently discovered that pyramidal neurons of
@@ -34,13 +34,11 @@ functions as spatial navigation and memory, is a major question in the field.
 
 The LCN-HippoModel is a **biophysically realistic model** of **CA1 pyramidal cells** aimed to get novel insights on
 firing dynamics in deep and superficial populations during the theta rhythm, and the role of the differential
-contribution of both the excitatory and inhibitory synaptic inputs, and the biophysical intrinsic
-properties.
+contribution of realistic excitatory and inhibitory synaptic inputs and intrinsic properties.
 
 
 The model includes known **excitatory and inhibitory inputs**, using morphologically reconstructions
-from `NeuroMorpho <http://neuromorpho.org/NeuroMorpho_ArchiveLinkout.jsp?ARCHIVE=prida&DATE=2017-03-30>`_ (a public database), and a **precise distribution
-of the main ion channels** via the Hodking-Huxley multi-compartment formalism in the
+from `NeuroMorpho <http://neuromorpho.org/NeuroMorpho_ArchiveLinkout.jsp?ARCHIVE=prida&DATE=2017-03-30>`_ (a public database), and a **precise distribution of the main ion channels** via the Hodking-Huxley multi-compartment formalism in the
 `NEURON+Python <https://www.neuron.yale.edu/neuron/>`_ platform.
 
 To provide **diversity** among the pyramidal cells, we generated several sets of intrinsic properties and, called 
