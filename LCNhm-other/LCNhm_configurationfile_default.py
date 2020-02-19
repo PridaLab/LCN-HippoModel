@@ -1,14 +1,14 @@
 # MAIN DIRECTORY
 # --------------
 DIR_LOCATION = '/home/andrea/Projects/HippoModel/LCNhippomodel'
-OPT_FOLDER_NAME = 'get_measurements'
+OPT_FOLDER_NAME = 'test'
 
 # SIMULATION PROPERTIES
 # ---------------------
-SIMPROP_THETA_MODE = False
+SIMPROP_THETA_MODE = True
 SIMPROP_THETA_PERIOD = 166.
 SIMPROP_START_TIME = 0
-SIMPROP_SIM_TIME = 3100.
+SIMPROP_SIM_TIME = 10. * SIMPROP_THETA_PERIOD
 SIMPROP_END_TIME = SIMPROP_START_TIME + SIMPROP_SIM_TIME
 SIMPROP_DT = 0.025
 SIMPROP_TEMPERATURE = 34.
@@ -16,12 +16,11 @@ SIMPROP_TEMPERATURE = 34.
 # CELL CHARACTERISTICS
 # --------------------
 CELLPROP_MORPHOLOGY = 'n128'
-CELLPROP_INTRINSIC = 12
-CELLPROP_SYNAPTIC = 1
+CELLPROP_INTRINSIC = 2
 CELLPROP_INTRINSIC_IONCHS = ['iNas','iA','iAHPs','iC','iCaL','iCaT','iKDR','iM','iHCN','iL']
 CELLPROP_INTRINSIC_EXPERIMENT = [ 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1. ]
-CELLPROP_SYNAPTIC_INPUTS = []
-CELLPROP_SYNAPTIC_EXPERIMENT = []
+CELLPROP_SYNAPTIC_INPUTS = ['CA3','CA2','EC3','EC2','Axo','Bis','CCK','Ivy','NGF','OLM','PV','SCA']
+CELLPROP_SYNAPTIC_EXPERIMENT = [ 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1., 1. ]
 
 # CURRENT OPTIONS
 # ---------------
@@ -30,21 +29,6 @@ CURRENT_DELAY = [0.]
 CURRENT_AMPLITUDES = [0.]
 CURRENT_SECTION = ['SomaList0']
 CURRENT_LOCATION = [0.]
-for sign in [+1, -1]:
-	for apicLoc in [0.0, 0.2]:
-		for amplitude in [.1, .25, .5, .75, 1.0]:
-			CURRENT_AMPLITUDES.append(sign*amplitude)
-			CURRENT_SECTION.append('SomaList0')
-			CURRENT_LOCATION.append(0.0)
-			CURRENT_DELAY.append(50.+CURRENT_DELAY[-1]+CURRENT_DURATION[-1])
-			CURRENT_DURATION.append(100.)
-			if apicLoc>0.0:
-				CURRENT_AMPLITUDES.append(sign*amplitude)
-				CURRENT_SECTION.append('ApicList0')
-				CURRENT_LOCATION.append(apicLoc)
-				CURRENT_DELAY.append(CURRENT_DELAY[-1])
-				CURRENT_DURATION.append(100.)
-
 
 # RECORDING OPTIONS
 # -----------------

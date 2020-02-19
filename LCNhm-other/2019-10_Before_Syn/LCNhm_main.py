@@ -46,10 +46,6 @@ is saved in different rows. Position is saved in different rows for each recordi
 Functions and descriptions
 --------------------------
 """
-from LCNhm_configurationfile import *
-from LCNhm_functions import *
-from LCNhm_class import *
-
 print '''
 	------------------
 	| LCN-HippoModel |
@@ -62,26 +58,22 @@ import numpy as np
 import pandas as pd
 from neuron import h, nrn, gui
 
+from LCNhm_configurationfile import *
+from LCNhm_functions import *
+from LCNhm_class import *
 
 TimeCountStart = time.time()
 # 	-----------
 # 	Make folder
 # 	-----------
-FolderName = make_folder(DIR_LOCATION, OPT_FOLDER_NAME)
+FolderName = make_folder( DIR_LOCATION, OPT_FOLDER_NAME)
 """
 String:
 Full name of folder where results will be saved
 """
 print '  %3d:%.2d ... folder "%s" made'%((time.time()-TimeCountStart)/60.,round((time.time()-TimeCountStart)%60),FolderName.split('/')[-1])
 
-Parameters = [ DIR_LOCATION, OPT_FOLDER_NAME, 
-			   SIMPROP_THETA_MODE, SIMPROP_THETA_PERIOD, SIMPROP_START_TIME, SIMPROP_SIM_TIME, SIMPROP_END_TIME, SIMPROP_DT, SIMPROP_TEMPERATURE, 
-			   CELLPROP_MORPHOLOGY, CELLPROP_INTRINSIC, CELLPROP_SYNAPTIC, 
-			   CELLPROP_INTRINSIC_IONCHS, CELLPROP_INTRINSIC_EXPERIMENT, 
-			   CELLPROP_SYNAPTIC_INPUTS, CELLPROP_SYNAPTIC_EXPERIMENT, 
-			   CURRENT_DURATION, CURRENT_DELAY, CURRENT_AMPLITUDES, CURRENT_SECTION, CURRENT_LOCATION, 
-			   RECORDING_MAGNITUDE, RECORDING_SECTION, RECORDING_LOCATION]
-save_parameters(Parameters, FolderName)
+save_parameters(FolderName)
 
 # 	---------------------------
 # 	Make cell from neuron_class
@@ -106,7 +98,7 @@ Their length must be the same, the number of different current clamps
 
 Click any of the links for further information
 """
-IntrinsicFactors = [CELLPROP_INTRINSIC_IONCHS, CELLPROP_INTRINSIC_EXPERIMENT, CELLPROP_INTRINSIC]
+IntrinsicFactors = [CELLPROP_INTRINSIC_IONCHS, CELLPROP_INTRINSIC_EXPERIMENT, CELLPROP_INDIVIDUAL]
 """
 List: 
 List of all intrinsic properties, packed to be a one of the :class:`LCNhm_class.neuron_class`'s inputs
@@ -120,7 +112,7 @@ List of all intrinsic properties, packed to be a one of the :class:`LCNhm_class.
 Click any of the links for further information
 """
 SynapticFactors = [CELLPROP_SYNAPTIC_INPUTS, CELLPROP_SYNAPTIC_EXPERIMENT,
-				   SIMPROP_THETA_MODE, SIMPROP_THETA_PERIOD, SIMPROP_START_TIME, SIMPROP_END_TIME, SIMPROP_DT, CELLPROP_SYNAPTIC]
+				   SIMPROP_THETA_MODE, SIMPROP_THETA_PERIOD, SIMPROP_START_TIME, SIMPROP_END_TIME, SIMPROP_DT]
 """
 List:
 List of all synaptic properties, packed to be a one of the :class:`LCNhm_class.neuron_class`'s inputs
@@ -174,5 +166,6 @@ print '  %3d:%.2d ... end of simulation'%((time.time()-TimeCountStart)/60.,round
 # 	------------
 # Detect and save spiking times, recordings and parameters
 save_spiking_times(Recordings, FolderName)
-save_recordings(Recordings, FolderName, RECORDING_MAGNITUDE)
+save_recordings(Recordings, FolderName)
+save_parameters(FolderName)
 print '  %3d:%.2d ... results saved'%((time.time()-TimeCountStart)/60.,round((time.time()-TimeCountStart)%60))

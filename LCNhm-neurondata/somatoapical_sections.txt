@@ -2,3 +2,17 @@ sup1 4
 n127 0
 n128 0
 n409 0
+CA-205R-F57-deep-mEC 0
+CA170-F59-deep-AMG 0
+CA211-LF-59-deep-AMG 0
+CA211-RF-57-deep-mPFC 0
+cck1-deep 0
+PV20-deep 0
+PV-12-deep-mPFC 0
+PV-63-deep-mEC 0
+PV75-deep-mEC 0
+PV96-deep-mEC 0
+I230114B14C4 0
+CA196f57-sup 0
+cck-28-sup 0
+PV-18-sup 0

@@ -264,8 +264,15 @@ def recordings(Pyramidal, RECORDING_MAGNITUDE, RECORDING_SECTION, RECORDING_LOCA
                                          'ApicList0_090': record object} }
 
     """
+    # If it's empty, record Soma for Spike times, but don't save it
+    if len(RECORDING_MAGNITUDE) == 0:
+        RECORDING_MAGNITUDE = ['Vmem']
+        RECORDING_SECTION = ['SomaList0']
+        RECORDING_LOCATION = [0.0]
+
     # Initialize variable
     Recordings = {}
+
     for Mag in RECORDING_MAGNITUDE:
         Recordings[Mag] = {}
 
@@ -314,7 +321,7 @@ def save_spiking_times(Recordings, FolderName):
     FolderName: String
         Name of folder where recordings will be saved, output from :func:`make_folder`
     """
-    
+
     # Membrane potential of soma and time
     VmemSoma = np.array(Recordings['Vmem']['SomaList0_000'].to_python())
     Time = np.array(Recordings['Time'].to_python())
@@ -331,11 +338,12 @@ def save_spiking_times(Recordings, FolderName):
         TimeSpikes.append(np.nan)
 
     # Save
+    #with open('/'.join(FolderName.split('/')[:-1])+'/TimeSpikes.txt',"a") as file:
     with open(FolderName+'/TimeSpikes.txt',"a") as file:
         file.write(" ".join(map(str, TimeSpikes ))) 
         file.write("\n")
 
-def save_recordings(Recordings, FolderName):
+def save_recordings(Recordings, FolderName, RECORDING_MAGNITUDE):
     """
     Recordings of the magnitudes selected in :const:`LCNhm_configurationfile.RECORDING_MAGNITUDE`
     are saved in a txt file in :data:`LCNhm_main.FolderName` subfolder, as:
@@ -371,28 +379,29 @@ def save_recordings(Recordings, FolderName):
     FolderName: String
         Name of folder where recordings will be saved, output from :func:`make_folder`
     """
-
-    # Magnitudes to be recorded
-    for Mag in Recordings.keys():
-        if Mag!='Time':
-            if Mag=='Pos':
-                with open('%s/Recordings_%s.txt'%(FolderName,Mag),"a") as file:
-                    # Sections
-                    for SecName in Recordings[Mag].keys():
-                        # Write magnitude of section 'SecName'
-                        file.write("%s %.3f %.3f %.3f %.3f\n"%tuple([SecName]+Recordings[Mag][SecName])) 
-            else:
-                with open('%s/Recordings_%s.txt'%(FolderName,Mag),"a") as file:
-                    # Time
-                    file.write("Time "+" ".join(map(str, Recordings['Time'].to_python() ))) 
-                    file.write("\n")
-                    # Sections
-                    for SecName in Recordings[Mag].keys():
-                        # Write magnitude of section 'SecName'
-                        file.write(SecName+" "+" ".join(map(str, Recordings[Mag][SecName].to_python() ))) 
+    # If RECORDING_SECTION is empty, record Soma for Spike times, but don't save it
+    if len(RECORDING_MAGNITUDE)>0:
+        # Magnitudes to be recorded
+        for Mag in Recordings.keys():
+            if Mag!='Time':
+                if Mag=='Pos':
+                    with open('%s/Recordings_%s.txt'%(FolderName,Mag),"a") as file:
+                        # Sections
+                        for SecName in Recordings[Mag].keys():
+                            # Write magnitude of section 'SecName'
+                            file.write("%s %.3f %.3f %.3f %.3f\n"%tuple([SecName]+Recordings[Mag][SecName])) 
+                else:
+                    with open('%s/Recordings_%s.txt'%(FolderName,Mag),"a") as file:
+                        # Time
+                        file.write("Time "+" ".join(map(str, Recordings['Time'].to_python() ))) 
                         file.write("\n")
+                        # Sections
+                        for SecName in Recordings[Mag].keys():
+                            # Write magnitude of section 'SecName'
+                            file.write(SecName+" "+" ".join(map(str, Recordings[Mag][SecName].to_python() ))) 
+                            file.write("\n")
 
-def save_parameters(FolderName):
+def save_parameters(Parameters, FolderName):
     """
     Values of the :ref:`LCNhm-configuration-file` parameters are written in Parameters.txt
     in :data:`LCNhm_main.FolderName` subfolder.
@@ -410,7 +419,7 @@ def save_parameters(FolderName):
         >>>   SIMPROP_DT 0.025000
         >>>   SIMPROP_TEMPERATURE 34.000000
         >>>   CELLPROP_MORPHOLOGY n128
-        >>>   CELLPROP_INDIVIDUAL 0
+        >>>   CELLPROP_INTRINSIC 0
         >>>   CELLPROP_INTRINSIC_IONCHS iNas iA iAHPs iC iCaL iCaT iKDR iM iHCN iL
         >>>   CELLPROP_INTRINSIC_EXPERIMENT 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000 1.000000
         >>>   CELLPROP_SYNAPTIC_INPUTS CA3 CA2 EC3 EC2 Axo Bis CCK Ivy NGF OLM PV SCA
@@ -426,19 +435,16 @@ def save_parameters(FolderName):
 
     Parameters
     ----------
+    Parameters: List
+        List with all :ref:`LCNhm-configuration-file` parameters
+
     FolderName: String
         Name of folder where recordings will be saved, output from :func:`make_folder`
     """
 
     # Save configuration file
-    from LCNhm_configurationfile import DIR_LOCATION, OPT_FOLDER_NAME, \
-        SIMPROP_THETA_MODE, SIMPROP_THETA_PERIOD, SIMPROP_START_TIME, SIMPROP_SIM_TIME, SIMPROP_END_TIME, SIMPROP_DT, SIMPROP_TEMPERATURE, \
-        CELLPROP_MORPHOLOGY, CELLPROP_INDIVIDUAL, \
-        CELLPROP_INTRINSIC_IONCHS, CELLPROP_INTRINSIC_EXPERIMENT, \
-        CELLPROP_SYNAPTIC_INPUTS, CELLPROP_SYNAPTIC_EXPERIMENT, \
-        CURRENT_DURATION, CURRENT_DELAY, CURRENT_AMPLITUDES, CURRENT_SECTION, CURRENT_LOCATION, \
-        RECORDING_MAGNITUDE, RECORDING_SECTION, RECORDING_LOCATION
-    
+    DIR_LOCATION, OPT_FOLDER_NAME, SIMPROP_THETA_MODE, SIMPROP_THETA_PERIOD, SIMPROP_START_TIME, SIMPROP_SIM_TIME, SIMPROP_END_TIME, SIMPROP_DT, SIMPROP_TEMPERATURE, CELLPROP_MORPHOLOGY, CELLPROP_INTRINSIC, CELLPROP_SYNAPTIC, CELLPROP_INTRINSIC_IONCHS, CELLPROP_INTRINSIC_EXPERIMENT, CELLPROP_SYNAPTIC_INPUTS, CELLPROP_SYNAPTIC_EXPERIMENT, CURRENT_DURATION, CURRENT_DELAY, CURRENT_AMPLITUDES, CURRENT_SECTION, CURRENT_LOCATION, RECORDING_MAGNITUDE, RECORDING_SECTION, RECORDING_LOCATION = Parameters
+
     with open('%s/Parameters.txt'%FolderName,"a") as file:
         file.write('DIR_LOCATION %s\n'%DIR_LOCATION)
         file.write('OPT_FOLDER_NAME %s\n'%OPT_FOLDER_NAME)
@@ -450,7 +456,8 @@ def save_parameters(FolderName):
         file.write('SIMPROP_DT %f\n'%SIMPROP_DT)
         file.write('SIMPROP_TEMPERATURE %f\n'%SIMPROP_TEMPERATURE)
         file.write('CELLPROP_MORPHOLOGY %s\n'%CELLPROP_MORPHOLOGY)
-        file.write('CELLPROP_INDIVIDUAL %d\n'%CELLPROP_INDIVIDUAL)
+        file.write('CELLPROP_INTRINSIC %d\n'%CELLPROP_INTRINSIC)
+        file.write('CELLPROP_SYNAPTIC %d\n'%CELLPROP_SYNAPTIC)
         file.write('CELLPROP_INTRINSIC_IONCHS'+' %s'*len(CELLPROP_INTRINSIC_IONCHS)%tuple(CELLPROP_INTRINSIC_IONCHS)+'\n')
         file.write('CELLPROP_INTRINSIC_EXPERIMENT'+' %f'*len(CELLPROP_INTRINSIC_EXPERIMENT)%tuple(CELLPROP_INTRINSIC_EXPERIMENT)+'\n')
         file.write('CELLPROP_SYNAPTIC_INPUTS'+' %s'*len(CELLPROP_SYNAPTIC_INPUTS)%tuple(CELLPROP_SYNAPTIC_INPUTS)+'\n')
@@ -463,3 +470,4 @@ def save_parameters(FolderName):
         file.write('RECORDING_MAGNITUDE \n'%RECORDING_MAGNITUDE)
         file.write('RECORDING_SECTION'+' %s'*len(RECORDING_SECTION)%tuple(RECORDING_SECTION)+'\n')
         file.write('RECORDING_LOCATION'+' %s'*len(RECORDING_LOCATION)%tuple(RECORDING_LOCATION)+'\n')
+

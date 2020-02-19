@@ -542,18 +542,18 @@ class neuron_class(object):
 
             * :data:`LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT`: Additional factor multiplying the following maximum conductances and axial resistance
 
-            * :data:`LCNhm_configurationfile.CELLPROP_INTRINSIC`: Number of the intrinsic genetic-algorithm `individual`
+            * :data:`LCNhm_configurationfile.CELLPROP_INDIVIDUAL`: Number of the intrinsic genetic-algorithm `individual`
 
         """
 
         # CELLPROP_INTRINSIC_IONCHS as IonChannels
         # CELLPROP_INTRINSIC_EXPERIMENT as FactorsExperiment
-        # CELLPROP_INTRINSIC as FactorsNum
+        # CELLPROP_INDIVIDUAL as FactorsNum
         IonChannels, FactorsExperiment, FactorsNum = IntrinsicFactors
 
         # Get 'individual' factors
         with open(DirLoc+'/LCNhm-neurondata/intrinsic_individuals.txt') as file:
-            FactorsIndividual = map(float, [line.split() for k, line in enumerate(file) if k==(FactorsNum-1) ][0])
+            FactorsIndividual = map(float, [line.split() for k, line in enumerate(file) if k==FactorsNum ][0])
 
         # Multiplication of the 'individual' factor by the 'experiment' factor
         FinalFactors = [ FactorsIndividual[ii] * FactorsExperiment[ii] for ii in range(len(FactorsExperiment))]
@@ -787,12 +787,12 @@ class neuron_class(object):
         # SIMPROP_END_TIME as tend
 
         # Unpack list of synaptic properties
-        SynInputs, FactorsExperiment, isTheta, ThetaPeriod, tini, tend, dt, FactorsNum = SynapticFactors
+        SynInputs, FactorsExperiment, isTheta, ThetaPeriod, tini, tend, dt = SynapticFactors
         if (tend-tini)<1.5*ThetaPeriod: warnings.warn('Warning: simulation lasts less than 1.5 times SIMPROP_THETA_PERIOD.')
 
         # Get 'individual' factors
         with open(DirLoc+'/LCNhm-neurondata/synaptic_individuals.txt') as file:
-            FactorsIndividual = map(float, [line.split()[1:] for line in file if line.split()[0]==str(FactorsNum) ][0])
+            FactorsIndividual = map(float, [line.split()[1:] for line in file if line.split()[0]==self.MorphoName ][0])
 
         # FinalFactors: Multiplication of the 'individual' factor by the 'experiment' factor
         FinalFactors = { SynInputs[ii] : (FactorsIndividual[ii]*FactorsExperiment[ii]) for ii in range(len(SynInputs)) }
@@ -845,57 +845,56 @@ class neuron_class(object):
                                     xyz3d = np.array([h.x3d(seg,sec=sec), h.y3d(seg,sec=sec), h.z3d(seg,sec=sec)])
                                     PossiblePoints.append([sec, loc, xyz3d, xyz3d[2]])
                         PossiblePoints = np.array(PossiblePoints)
-                        if len(PossiblePoints)>0:
-                            Zs = PossiblePoints[:,3].astype(float)
-                            # Gaussian distribution around the mean ((Zmin+Zmax)/3.), and normalized to (Zmin+Zmax)/6.
-                            PlaceDistribution = np.exp( -(Zs-(Zmin+Zmax)/3.)**2 / np.max([10, (Zmin+Zmax)/6.])**2)
-                            PlaceDistribution /= sum(PlaceDistribution)
-                            # Pick random NumBoutons PossiblePoints, according to PlaceDistribution
-                            #SynPlaces = PossiblePoints[ np.in1d( Zs, np.random.choice(Zs, p=PlaceDistribution, size=NumBoutons)) ]
-                            #SynPlaces = np.array(SynPlaces)
-                            # Pick random NumBoutons PossiblePoints, according to the distribution, where to set the synapse (boutons)  
-                            SynPlaces = [PossiblePoints[ np.where( Zs==iz )[0][0]] for iz in np.random.choice(Zs, p=PlaceDistribution, size=NumBoutons)]
-                            SynPlaces = np.array(SynPlaces)
+                        Zs = PossiblePoints[:,3].astype(float)
+                        # Gaussian distribution around the mean ((Zmin+Zmax)/3.), and normalized to (Zmin+Zmax)/6.
+                        PlaceDistribution = np.exp( -(Zs-(Zmin+Zmax)/3.)**2 / np.max([10, (Zmin+Zmax)/6.])**2)
+                        PlaceDistribution /= sum(PlaceDistribution)
+                        # Pick random NumBoutons PossiblePoints, according to PlaceDistribution
+                        #SynPlaces = PossiblePoints[ np.in1d( Zs, np.random.choice(Zs, p=PlaceDistribution, size=NumBoutons)) ]
+                        #SynPlaces = np.array(SynPlaces)
+                        # Pick random NumBoutons PossiblePoints, according to the distribution, where to set the synapse (boutons)  
+                        SynPlaces = [PossiblePoints[ np.where( Zs==iz )[0][0]] for iz in np.random.choice(Zs, p=PlaceDistribution, size=NumBoutons)]
+                        SynPlaces = np.array(SynPlaces)
 
-                            # Selecting times
-                            # ---------------
-                            # Possible times between 'tini' and 'tend'
-                            PossibleTimes = np.arange(tini, tend, dt)
-                            # Synaptic time distribution
-                            if isTheta:
-                                # If we are in theta mode, no-homogeneous distribution (given by synaptic_time_probability_distribution)
-                                TimeDistribution = synaptic_time_probability_distribution(PossibleTimes, Phase, [ThetaPeriod,BetaA,BetaB])
-                            else:
-                                # If we are not in theta mode, homogeneous distribution
-                                TimeDistribution = np.ones(len(PossibleTimes))/len(PossibleTimes)
-                            # Randomness in amount of number of synapses per bouton 
-                            NumSynRand = 2.*NumSynapses*np.random.random(len(SynPlaces))
+                        # Selecting times
+                        # ---------------
+                        # Possible times between 'tini' and 'tend'
+                        PossibleTimes = np.arange(tini, tend, dt)
+                        # Synaptic time distribution
+                        if isTheta:
+                            # If we are in theta mode, no-homogeneous distribution (given by synaptic_time_probability_distribution)
+                            TimeDistribution = synaptic_time_probability_distribution(PossibleTimes, Phase, [ThetaPeriod,BetaA,BetaB])
+                        else:
+                            # If we are not in theta mode, homogeneous distribution
+                            TimeDistribution = np.ones(len(PossibleTimes))/len(PossibleTimes)
+                        # Randomness in amount of number of synapses per bouton 
+                        NumSynRand = 2.*NumSynapses*np.random.random(len(SynPlaces))
 
-                            # Setting synapses
-                            # ----------------
-                            for iBoutons in range(len(SynPlaces)):                        
-                                # Synapse place
-                                sec = SynPlaces[iBoutons][0] # Section
-                                loc = SynPlaces[iBoutons][1] # Location
-                                xyzSec = SynPlaces[iBoutons][2]
-                                # Making GLUTAMATE/GABA A synapse at that place
-                                SynObjects.append(h.Exp2Syn(sec(loc)))
-                                SynObjects[-1].e = Erev # (mV)
-                                SynObjects[-1].tau1 = Tau1 # (ms)
-                                SynObjects[-1].tau2 = Tau2 # (ms)
-                                # Taking spiking times from the above distribution
-                                SynTimes = np.sort(np.random.choice(PossibleTimes, size=int(NumSynRand[iBoutons]), p=TimeDistribution))
-                                # Making the synapse object
-                                for tsyn in SynTimes:
-                                    # Connecting the synapse Object with the 'stimulator' NetCon
-                                    NetConObjects.append(h.NetCon(self.SomaList[0](0)._ref_v, SynObjects[-1], sec=self.SomaList[0]))
-                                    NetConObjects[-1].delay = tsyn # ms
-                                    NetConObjects[-1].threshold = -1000 # mV
-                                    NetConObjects[-1].weight[0] = Gmax*(1 + (np.linalg.norm(xyzSec - xyzSoma)>240)) # uS (double on distal locations)
-                                # Saving for future writing
-                                SynDict[SynInput]['SynSection'].append([sec,loc])
-                                SynDict[SynInput]['SynPlaces'].append(xyzSec)
-                                SynDict[SynInput]['SynTimes'].append(SynTimes)
+                        # Setting synapses
+                        # ----------------
+                        for iBoutons in range(len(SynPlaces)):                        
+                            # Synapse place
+                            sec = SynPlaces[iBoutons][0] # Section
+                            loc = SynPlaces[iBoutons][1] # Location
+                            xyzSec = SynPlaces[iBoutons][2]
+                            # Making GLUTAMATE/GABA A synapse at that place
+                            SynObjects.append(h.Exp2Syn(sec(loc)))
+                            SynObjects[-1].e = Erev # (mV)
+                            SynObjects[-1].tau1 = Tau1 # (ms)
+                            SynObjects[-1].tau2 = Tau2 # (ms)
+                            # Taking spiking times from the above distribution
+                            SynTimes = np.sort(np.random.choice(PossibleTimes, size=int(NumSynRand[iBoutons]), p=TimeDistribution))
+                            # Making the synapse object
+                            for tsyn in SynTimes:
+                                # Connecting the synapse Object with the 'stimulator' NetCon
+                                NetConObjects.append(h.NetCon(self.SomaList[0](0)._ref_v, SynObjects[-1], sec=self.SomaList[0]))
+                                NetConObjects[-1].delay = tsyn # ms
+                                NetConObjects[-1].threshold = -1000 # mV
+                                NetConObjects[-1].weight[0] = Gmax*(1 + (np.linalg.norm(xyzSec - xyzSoma)>240)) # uS (double on distal locations)
+                            # Saving for future writing
+                            SynDict[SynInput]['SynSection'].append([sec,loc])
+                            SynDict[SynInput]['SynPlaces'].append(xyzSec)
+                            SynDict[SynInput]['SynTimes'].append(SynTimes)
                  
         return SynDict, SynObjects, NetConObjects
 

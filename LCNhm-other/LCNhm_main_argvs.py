@@ -62,6 +62,9 @@ import numpy as np
 import pandas as pd
 from neuron import h, nrn, gui
 
+CELLPROP_INTRINSIC = int(sys.argv[1])
+CELLPROP_SYNAPTIC = int(sys.argv[2])
+CELLPROP_MORPHOLOGY = sys.argv[3]
 
 TimeCountStart = time.time()
 # 	-----------
@@ -74,13 +77,7 @@ Full name of folder where results will be saved
 """
 print '  %3d:%.2d ... folder "%s" made'%((time.time()-TimeCountStart)/60.,round((time.time()-TimeCountStart)%60),FolderName.split('/')[-1])
 
-Parameters = [ DIR_LOCATION, OPT_FOLDER_NAME, 
-			   SIMPROP_THETA_MODE, SIMPROP_THETA_PERIOD, SIMPROP_START_TIME, SIMPROP_SIM_TIME, SIMPROP_END_TIME, SIMPROP_DT, SIMPROP_TEMPERATURE, 
-			   CELLPROP_MORPHOLOGY, CELLPROP_INTRINSIC, CELLPROP_SYNAPTIC, 
-			   CELLPROP_INTRINSIC_IONCHS, CELLPROP_INTRINSIC_EXPERIMENT, 
-			   CELLPROP_SYNAPTIC_INPUTS, CELLPROP_SYNAPTIC_EXPERIMENT, 
-			   CURRENT_DURATION, CURRENT_DELAY, CURRENT_AMPLITUDES, CURRENT_SECTION, CURRENT_LOCATION, 
-			   RECORDING_MAGNITUDE, RECORDING_SECTION, RECORDING_LOCATION]
+Parameters = [DIR_LOCATION, OPT_FOLDER_NAME, SIMPROP_THETA_MODE, SIMPROP_THETA_PERIOD, SIMPROP_START_TIME, SIMPROP_SIM_TIME, SIMPROP_END_TIME, SIMPROP_DT, SIMPROP_TEMPERATURE, CELLPROP_MORPHOLOGY, CELLPROP_INTRINSIC, CELLPROP_SYNAPTIC, CELLPROP_INTRINSIC_IONCHS, CELLPROP_INTRINSIC_EXPERIMENT, CELLPROP_SYNAPTIC_INPUTS, CELLPROP_SYNAPTIC_EXPERIMENT, CURRENT_DURATION, CURRENT_DELAY, CURRENT_AMPLITUDES, CURRENT_SECTION, CURRENT_LOCATION, RECORDING_MAGNITUDE, RECORDING_SECTION, RECORDING_LOCATION]
 save_parameters(Parameters, FolderName)
 
 # 	---------------------------
@@ -115,7 +112,7 @@ List of all intrinsic properties, packed to be a one of the :class:`LCNhm_class.
 
 * :const:`LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT`: Additional factor multiplying the following maximum conductances and axial resistance
 
-* :const:`LCNhm_configurationfile.CELLPROP_INDIVIDUAL`: Number of the intrinsic genetic-algorithm `individual`
+* :const:`LCNhm_configurationfile.CELLPROP_INTRINSIC`: Number of the intrinsic genetic-algorithm `individual`
 
 Click any of the links for further information
 """
@@ -176,3 +173,36 @@ print '  %3d:%.2d ... end of simulation'%((time.time()-TimeCountStart)/60.,round
 save_spiking_times(Recordings, FolderName)
 save_recordings(Recordings, FolderName, RECORDING_MAGNITUDE)
 print '  %3d:%.2d ... results saved'%((time.time()-TimeCountStart)/60.,round((time.time()-TimeCountStart)%60))
+
+
+# 	------------------------
+# 	Save spikes in same file
+# 	------------------------
+
+# Compute spikes
+VmemSoma = np.array(Recordings['Vmem']['SomaList0_000'].to_python())
+Time = np.array(Recordings['Time'].to_python())
+TimeSpikes = []
+for i, iTime in enumerate(Time[Time>50.]):
+    if (VmemSoma[i]>VmemSoma[i-1]) and (VmemSoma[i]>VmemSoma[i+1]) and (VmemSoma[i]>-10):
+        TimeSpikes.append(iTime)
+
+# Add spikes to line
+from tempfile import mkstemp
+from shutil import move
+from os import fdopen, remove
+fh, abs_path = mkstemp()
+with fdopen(fh,'w') as NewFile:
+    with open(DIR_LOCATION+'/LCNhm-results/TimeSpikes_by_individual.txt') as OldFile:
+        for line in OldFile:
+            if '%.2d %d %s'%(CELLPROP_INTRINSIC,CELLPROP_SYNAPTIC,CELLPROP_MORPHOLOGY) in line: 
+                Pattern = line[:-1]
+                NewFile.write(line.replace(Pattern, Pattern+' '+' '.join(map(str,TimeSpikes))))
+            else:
+                NewFile.write(line)
+#Remove original file
+remove(DIR_LOCATION+'/LCNhm-results/TimeSpikes_by_individual.txt')
+#Move new file
+move(abs_path, DIR_LOCATION+'/LCNhm-results/TimeSpikes_by_individual.txt')
+
+
