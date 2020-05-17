@@ -47,9 +47,4 @@ https://acnavasolive.github.io/LCN-HippoModel/
 
 You can read [here](https://www.nature.com/articles/s41467-020-15840-6) the article where this model was used.
 
-
-Multimodal determinants of phase-locked dynamics across deep-superficial hippocampal sublayers during theta oscillations.
-
-**Andrea Navas-Olive**, Manuel Valero, Teresa Jurado-Parras, Adan de Salas-Quiroga, Robert G. Averkin, Giuditta Gambino, Elena Cid & Liset M. de la Prida 
-
-_Nat Commun_ 11, 2217 (2020)
+**Navas-Olive, A.**, Valero, M., Jurado-Parras, T. et al. Multimodal determinants of phase-locked dynamics across deep-superficial hippocampal sublayers during theta oscillations. _Nat Commun_ 11, 2217 (2020). 
