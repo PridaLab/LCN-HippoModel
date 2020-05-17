@@ -35,16 +35,21 @@ The LCN-HippoModel offers an easy way to test hypotheses about the role of diffe
 factors in the firing dynamics of CA1 pyramidal cells by simply changing experimental parameters defined in the
 LCNhm_configurationfile.py.
 
+
 # Documentation
 
 Full documentation of the code can be found here:
 
 https://acnavasolive.github.io/LCN-HippoModel/
 
+
 # Full article
 
 You can read [here](https://www.nature.com/articles/s41467-020-15840-6) the article where this model was used.
 
+
 Multimodal determinants of phase-locked dynamics across deep-superficial hippocampal sublayers during theta oscillations.
+
 **Andrea Navas-Olive**, Manuel Valero, Teresa Jurado-Parras, Adan de Salas-Quiroga, Robert G. Averkin, Giuditta Gambino, Elena Cid & Liset M. de la Prida 
+
 _Nat Commun_ 11, 2217 (2020)
