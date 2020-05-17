@@ -15,7 +15,7 @@ The LCN-HippoModel is a **biophysically realistic model** of **CA1 pyramidal cel
 novel insights on firing dynamics in deep and superficial populations during the theta rhythm, and
 the role of the differential contribution of both the excitatory and inhibitory synaptic inputs, 
 and the biophysical intrinsic properties.
-![alt text](https://github.com/acnavasolive/LCN-HippoModel/blob/master/docs/_images/figure_model_.png)
+![alt text](https://github.com/acnavasolive/LCN-HippoModel/blob/master/docs/_images/figure_model_thin.png)
 
 The model includes known **excitatory and inhibitory inputs**, using morphologically reconstructions
 from NeuroMorpho (http://neuromorpho.org/) (a public database), and a precise distribution of the 
