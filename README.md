@@ -1,6 +1,5 @@
 # LCN-HippoModel
 
-
 One of the most studied brain rhythm is the **theta rhythm**. Theta (4-12 Hz) is considered
 the “on-line” status of the hippocampus, a highly rhythmic activity that acts as a global 
 synchronizer mechanism for encoding and information processing. During a theta cycle different
@@ -12,12 +11,10 @@ response in other hippocampal rhythm, sharp wave-ripples, an oscillation associa
 consolidation of memory. Understanding how this coordination holds up hippocampal
 functions as spatial navigation and memory, is a major question in the field.
 
-
 The LCN-HippoModel is a **biophysically realistic model** of **CA1 pyramidal cells** aimed to get
 novel insights on firing dynamics in deep and superficial populations during the theta rhythm, and
 the role of the differential contribution of both the excitatory and inhibitory synaptic inputs, 
 and the biophysical intrinsic properties.
-
 ![alt text](https://github.com/acnavasolive/LCN-HippoModel/blob/master/docs/_images/figure_model_.png)
 
 The model includes known **excitatory and inhibitory inputs**, using morphologically reconstructions
@@ -43,3 +40,9 @@ LCNhm_configurationfile.py.
 Full documentation of the code can be found here:
 
 https://acnavasolive.github.io/LCN-HippoModel/
+
+# Article at Nature Communications
+
+You can read [here](https://www.nature.com/articles/s41467-020-15840-6) the article where this model was used.
+
+**Navas-Olive, A.**, Valero, M., Jurado-Parras, T. et al. Multimodal determinants of phase-locked dynamics across deep-superficial hippocampal sublayers during theta oscillations. _Nat Commun_ 11, 2217 (2020)
