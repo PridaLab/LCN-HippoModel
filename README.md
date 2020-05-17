@@ -32,6 +32,7 @@ values in each given morphology. So our *individuals* are some of those *set of 
 experimental constraints. This procedure was repeated with the synaptic properties, so we ended up with
 several **intrinsic and synaptic individuals** that would give us heterogenous responses.
 
+![alt text](https://github.com/acnavasolive/LCN-HippoModel/blob/master/docs/_images/figure_individuals.png)
 
 The LCN-HippoModel offers an easy way to test hypotheses about the role of different synaptic and intrinsic
 factors in the firing dynamics of CA1 pyramidal cells by simply changing experimental parameters defined in the
