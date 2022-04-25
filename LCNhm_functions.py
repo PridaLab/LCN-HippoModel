@@ -20,7 +20,7 @@ import datetime
 import numpy as np
 from neuron import h, nrn, gui
 
-def make_folder(DIR_LOCATION, OPT_FOLDER_NAME):
+def make_folder(DIR_LOCATION, OPT_FOLDER_NAME, name_results_folder='LCNhm-results', add_date=True):
     """
     Make a new folder inside *DIR_LOCATION/LCNhm-results/* to save any new simulation.
 
@@ -54,17 +54,20 @@ def make_folder(DIR_LOCATION, OPT_FOLDER_NAME):
              datetime.datetime.today().minute ]
 
     # Name of folder: <D(ate)YearMonthDay_T(ime)HourMinute_OptionalFolderName>
-    FOLDER_NAME = 'D%.2d%.2d%.2d_T%.2d%.2d'%tuple(Date) + '_' * (len(OPT_FOLDER_NAME)>0) + OPT_FOLDER_NAME
+    FOLDER_NAME = ''
+    if add_date:
+        FOLDER_NAME = 'D%.2d%.2d%.2d_T%.2d%.2d'%tuple(Date) + '_' * (len(OPT_FOLDER_NAME)>0)
+    FOLDER_NAME += OPT_FOLDER_NAME
     FolderLen = len(FOLDER_NAME)
 
     # Make a new directory
-    dirFolderName = DIR_LOCATION+'/LCNhm-results/'+FOLDER_NAME
+    dirFolderName = DIR_LOCATION+'/'+name_results_folder+'/'+FOLDER_NAME
 
     # If folder doesnt exist, make a new one; if it exists, add a suffix
     k = 1
     while os.path.exists(dirFolderName):
         FOLDER_NAME = FOLDER_NAME[:FolderLen] + '_%.3d'%k
-        dirFolderName = DIR_LOCATION+'/LCNhm-results/'+FOLDER_NAME
+        dirFolderName = DIR_LOCATION+'/'+name_results_folder+'/'+FOLDER_NAME
         k += 1
     # Make new folder
     os.makedirs(dirFolderName)
@@ -471,3 +474,25 @@ def save_parameters(Parameters, FolderName):
         file.write('RECORDING_SECTION'+' %s'*len(RECORDING_SECTION)%tuple(RECORDING_SECTION)+'\n')
         file.write('RECORDING_LOCATION'+' %s'*len(RECORDING_LOCATION)%tuple(RECORDING_LOCATION)+'\n')
 
+
+def PF_modulation(t, ymax, lim1=400., center=2700., lim2=3600.):
+    
+    # lim1: Place field start (400 ms assuming constant speed)
+    # center: Place field maximum modulation (2700 ms assuming constant speed)
+    # lim2: Place field end (3600 ms assuming constant speed)
+
+    # Raise
+    if (t >= lim1) and (t < center):
+        x = ymax / (center - lim1)
+        y0 = 1. - lim1*x
+        return y0 + x*t
+    
+    # Decay
+    elif (t >= center) and (t < lim2):
+        x = ymax / (center - lim2)
+        y0 = 1. - lim2*x
+        return y0 + x*t
+
+    # Outside, constan
+    else:
+        return 1.

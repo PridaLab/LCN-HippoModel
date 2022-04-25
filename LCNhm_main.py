@@ -48,7 +48,7 @@ Functions and descriptions
 """
 from LCNhm_configurationfile import *
 from LCNhm_functions import *
-from LCNhm_class import *
+from LCNhm_class_PFmodulation import *
 
 print '''
 	------------------
@@ -139,11 +139,12 @@ List of all synaptic properties, packed to be a one of the :class:`LCNhm_class.n
 Click any of the links for further information
 """
 # Make neuron
-Pyramidal = neuron_class(MorphoName = CELLPROP_MORPHOLOGY,
+Pyramidal = neuron_class_PFmodulation(MorphoName = CELLPROP_MORPHOLOGY,
 						 IntrinsicFactors = IntrinsicFactors,
 						 SynapticFactors = SynapticFactors,
 						 CurrentFactors = CurrentFactors,
-						 DirLocation = DIR_LOCATION ) 
+						 DirLocation = DIR_LOCATION,
+						 DGiDGe = [DGi, DGe] ) 
 """
 Object: Pyramidal from :class:`LCNhm_class.neuron_class`"""
 print '  %3d:%.2d ... pyramidal cell made'%((time.time()-TimeCountStart)/60.,round((time.time()-TimeCountStart)%60))

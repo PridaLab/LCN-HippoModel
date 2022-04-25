@@ -1,67 +1,3 @@
-"""
-This script shapes the class from which our neurons will be built. 
-
-Neurons will have the following attributes:
-
-* **MorphoName**: Morphology name, it must be one of the following: `n128`, `sup1`, `n409` or `n127`
-* **MorphoData**: Dataset containing all the morphological data
-* **SomaList**: List of NEURON somatic ``Sections``
-* **AxonList**: List of NEURON axonic ``Sections``
-* **DendList**: List of NEURON Basal dendritic ``Sections``
-* **ApicList**: List of NEURON apical dendritic ``Sections``
-* **SomApicList**: List of somatoapical NEURON apical dendritic ``Sections``
-* **SectionsList**: List of all NEURON ``Sections``, the union of :attr:`SomaList`, :attr:`AxonList`, :attr:`DendList`, :attr:`ApicList`
-* **TopolDict**: Dictionary with all topological information in the form
-* **CurrentObject**: List of NEURON objects containing all current clamps information
-
-
-Access to all these properties is possible by:
-
-.. code-block:: python
-
-    Eg.:
-    
-    >>> Pyramidal = neuron_class(MorphoName = CELLPROP_MORPHOLOGY,
-                 IntrinsicFactors = IntrinsicFactors,
-                 SynapticFactors = SynapticFactors,
-                 CurrentFactors = CurrentFactors,
-                 DirLocation = DIR_LOCATION ) 
-
-    >>> print Pyramidal.MorphoName
-
-    sup1
-
-
-The way the neuron is built is following these steps:
-
-1. **Import and set morphological data** from ./LCNhm-neurondata/``CELLPROP_MORPHOLOGY``.swc
-    These .swcs cointain information about the 3D structure and width of the cell. 
-
-    You can obtain more morphologies on the public databas `NeuroMorpho <http://neuromorpho.org/>`_
-
-    Classification into four main morphological categories (soma, axon, basal and apical dendrites).
-
-    Every category will be compartimentalized in multiple sections, each of which will have different and specific
-    ion channels, synaptic inputs, diameter, spines, etc... For instance, one apical dendrite that starts on the somatoapical trunk,
-    will be compartimentalized in 10 sections, where the nearest section to the trunk will be thicker than the furthest.
-
-#. **Set biophysics** (ion channels, membrane capacitance, membrane resistivity, etc...)
-    What ion channels to use can be chosen, as well as a factor to increase/decrease the conductance density.
-
-    See :data:`LCNhm_configurationfile.CELLPROP_INTRINSIC_IONCHS` and :data:`LCNhm_configurationfile.CELLPROP_INTRINSIC_EXPERIMENT`: 
-    for further details.
-
-#. **Set synapses** (excitatory/inhibitory inputs, place of synaptic boutons, maximum conductance, etc...)
-    Synaptic inputs can be chosen, as well as a factor to increase/decrease the maximum conductance.
-
-    See :data:`LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS` and :data:`LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT`: 
-    for further details.
-
-#. **Set current clamp** (place, duration, intensity, etc...)
-    A square-pulse clamp is set according to parameters written in :ref:`LCNhm-configuration-file`.
-
-    See :data:`LCNhm_configurationfile.CURRENT_DURATION`, :data:`LCNhm_configurationfile.CURRENT_DELAY`, :data:`LCNhm_configurationfile.CURRENT_AMPLITUDES`, :data:`LCNhm_configurationfile.CURRENT_SECTION`, :data:`LCNhm_configurationfile.CURRENT_LOCATION`, for further details.
-"""
 import sys
 import math
 import warnings
@@ -69,126 +5,13 @@ import numpy as np
 import pandas as pd
 from neuron import h, nrn, gui
 from LCNhm_functions import *
+import pickle
 
 
-class neuron_class(object):
-    """
-    Neurons will be built as `neuron_class` objects.
-
-    Parameters
-    ----------
-        MorphoName: String
-            Morphology name, it must be one of the following: `n128`, `sup1`, `n409` or `n127`
-
-            Defined in :const:`LCNhm_configurationfile.CELLPROP_MORPHOLOGY`
-
-        IntrinsicFactors: List
-            List of all current properties
-
-            Defined in :const:`LCNhm_main.IntrinsicFactors`
-
-        SynapticFactors: List
-            List of all intrinsic properties
-
-            Defined in :const:`LCNhm_main.SynapticFactors`
-
-        CurrentFactors: List
-            List of all synaptic properties
-
-            Defined in :const:`LCNhm_main.CurrentFactors`
-
-        DirLocation: String
-            Precise location of the main directory
-
-    Returns
-    -------
-        ``neuron_class`` object: Class object
-
-    Attributes
-    ----------
-        MorphoName: String
-            Morphology name, it must be one of the following: `n128`, `sup1`, `n409` or `n127`
-
-            Defined in :const:`LCNhm_configurationfile.CELLPROP_MORPHOLOGY`
-
-            It is one of the :class:`neuron_class` inputs
-
-        MorphoData: csv
-            Dataset containing all the morphological data
-
-            It describes each morphological point with six parameters:
-                * ``Type``: soma (1), axon (2), Basal (3) or apical (4) dendrite
-                * ``x`` , ``y`` , ``z``: Spatial coordinates (in micrometers)
-                * ``d``: diameter (in micrometers)
-                * ``IDFather``: Line number of the morphological point to which is connected
-
-            See :func:`make_geometry_dictionary` to see how it is used
-
-            Source file in *../LCNhm-neurondata/ <MorphoName> .swc*
-
-        SomaList: List
-            List of NEURON somatic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        AxonList: List
-            List of NEURON axonic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        DendList: List
-            List of NEURON Basal dendritic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        ApicList: List
-            List of NEURON apical dendritic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        SomApicList: List
-            List of somatoapical NEURON apical dendritic ``Sections``
-
-            List can be found in *./LCNhm-neurondata/somatoapical_sections.txt*
-
-        SectionsList: List
-            List of all NEURON ``Sections``, the union of :attr:`SomaList`, :attr:`AxonList`, :attr:`DendList`, :attr:`ApicList`
-
-        TopolDict: Dictionary
-            Dictionary with all topological information in the form
-
-                [ [ SecListName[SecNumber] ,  Who is connected to (IDFather) ,  x ,  y ,  z ] ] , [...], ... ]
-
-            Eg.:
-
-            .. code-block:: python
-
-                #            NEURON object    name           ID of father     x  y  z
-                TopolDict = { SomaList[0]: ['SomaList[0]',       -1,          0, 0, 0],
-                              SomaList[1]: ['SomaList[1]', ID of SomaList[0], 0, 0, -2],
-                              ...
-                              ApicList[9]: ['ApicList[9]', ID of ApicList[2], 0, 0, -1000]}
-
-        CurrentObject: List
-            List of NEURON objects containing all current clamps information
-            
-                [[ Clamp object 1, Duration 1, Delay 1, Amplitude 1 ],
-                [  Clamp object 2, Duration 2, Delay 2, Amplitude 2 ], [...], ...... ]
-
-            Eg.:
-
-            .. code-block:: python
-
-                #                   Object                 dur   del  amp 
-                CurrentObject = [ [ NEURON object at soma, 100,    0,   0],
-                                  [ NEURON object at soma, 200,  300,   0],
-                                  ...
-                                  [ NEURON object at soma, 200, 1200,   0]]
-
-    """
+class neuron_class_PFmodulation(object):
 
     # Atributes and callings to methods
-    def __init__(self, MorphoName, IntrinsicFactors, SynapticFactors, CurrentFactors, DirLocation):
+    def __init__(self, MorphoName, IntrinsicFactors, SynapticFactors, CurrentFactors, DirLocation, DGiDGe=[0, 0]):
 
         global DirLoc; DirLoc = DirLocation
 
@@ -225,7 +48,7 @@ class neuron_class(object):
         # ========
         self.SynapticFactors = SynapticFactors
         #self.SynDict, self.synObj, self.NetConObjects = self.SetSynapses(self.SynapticFactors)
-        if len(SynapticFactors[0])>0: self.SynDict, self.SynObjects, self.NetConObjects = self.set_synaptic_properties(SynapticFactors)
+        if len(SynapticFactors[0])>0: self.SynDict, self.SynObjects, self.NetConObjects = self.set_synaptic_properties(SynapticFactors, DGiDGe)
 
         # ICLAMP
         # ======
@@ -233,51 +56,6 @@ class neuron_class(object):
 
 
     def init_sections(self, MorphoData):
-        """
-        Initialization and group in lists of the four main class of sections: soma, axon, Basal (dend) and apical (apic) dendrites
-
-        Parameters
-        ----------
-        MorphoData: csv
-            :class:`neuron_class`'s :attr:`MorphoData` attribute: Dataset containing all the morphological data
-
-            It describes each morphological point with six parameters:
-                * ``Type``: soma (1), axon (2), Basal (3) or apical (4) dendrite
-                * ``x`` , ``y`` , ``z``: Spatial coordinates (in micrometers)
-                * ``d``: diameter (in micrometers)
-                * ``IDFather``: Line number of the morphological point to which is connected
-
-            See :func:`make_geometry_dictionary` to see how it is used
-
-            Source file in *../LCNhm-neurondata/ <MorphoName> .swc*
-
-        Returns
-        -------
-        SomaList: List
-            class:`neuron_class`'s :attr:`SomaList` attribute: List of NEURON somatic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        AxonList: List
-            class:`neuron_class`'s :attr:`AxonList` attribute: List of NEURON axonic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        DendList: List
-            class:`neuron_class`'s :attr:`DendList` attribute: List of NEURON Basal dendritic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        ApicList: List
-            class:`neuron_class`'s :attr:`ApicList` attribute: List of NEURON apical dendritic ``Sections``
-
-            The number of ``Sections`` is derived from :attr:`MorphoData`
-
-        SomApicList: List
-            class:`neuron_class`'s :attr:`SomApicList` attribute: List of somatoapical NEURON apical dendritic ``Sections``.
-
-            List can be found in `./LCNhm-neurondata/somatoapical_sections.txt`.
-        """
         # We count how many lines have Type 1 (SomaList)
         numsoma = sum([1 for i in MorphoData.index if (MorphoData['Type'][i] == 1) and ((MorphoData['IDFather'][i] != i-1) or (MorphoData['Type'][MorphoData['IDFather'][i]] != MorphoData['Type'][i]))])
         # We count how many lines have Type 2 (AxonList)
@@ -301,72 +79,12 @@ class neuron_class(object):
         return SomaList, AxonList, DendList, ApicList, SomApicList
 
     def make_geometry_dictionary(self, CellPosition, MorphoData):
-        """
-        Make a legible dictionary from the swc ``MorphoData`` database
-
-        Parameters
-        ----------
-        CellPosition: List of Floats
-            List of four elements
-
-            * x-, y-, z-: spatial position of the soma (in micrometers)
-
-            * angle: self-rotation around its main axis (in degrees)
-
-        MorphoData: csv
-            :class:`neuron_class`'s :attr:`MorphoData` attribute: Dataset containing all the morphological data
-
-            It describes each morphological point with six parameters:
-                * ``Type``: soma (1), axon (2), Basal (3) or apical (4) dendrite
-                * ``x`` , ``y`` , ``z``: Spatial coordinates (in micrometers)
-                * ``d``: diameter (in micrometers)
-                * ``IDFather``: Line number of the morphological point to which is connected
-
-            See :func:`make_geometry_dictionary` to see how it is used
-
-            Source file in *../LCNhm-neurondata/ <MorphoName> .swc*
-
-        Returns
-        -------
-        TopolDict: Dictionary
-            :class:`neuron_class`'s :attr:`TopolDict` attribute: Dictionary with all topological information in the form
-
-                [ [ SecListName[SecNumber] ,  Who is connected to (IDFather) ,  x ,  y ,  z ] ] , [...], ... ]
-
-            Eg.:
-
-            .. code-block:: python
-
-                #            NEURON object    name           ID of father     x  y  z
-                TopolDict = { SomaList[0]: ['SomaList[0]',       -1,          0, 0, 0]
-                              SomaList[1]: ['SomaList[1]', ID of SomaList[0], 0, 0, -2],
-                              ...
-                              ApicList[9]: ['ApicList[9]', ID of ApicList[2], 0, 0, -1000]}
-
-        """
 
 
         # Unpack x,y,z,rotation parameters from CellPosition
         X, Y, Z, SelfRotation = CellPosition
 
         class Point(object):
-            """
-            Each point (compartment) in the neuron will be a ``Point`` class
-
-            Attributes
-            ----------
-            ID: Int
-                Line number in the MorphoData csv
-
-            Type: Int
-                NEURON ``Section`` Type: 1 (soma), 12 (axon), 3 (dend), 4 (apic)
-
-            coords:
-                Coordinates from the MorphoData csv, transformed by CellPosition
-
-            IDFather:
-                Line number in the MorphoData csv from which this compartment starts
-            """
             def __init__(self, ID, Type, coords, sect_num, IDFather, isFather):
                 self.ID = ID
                 # SomaList, AxonList, Basal Dendrite, Apical Dendrite
@@ -659,126 +377,7 @@ class neuron_class(object):
             for sect in self.DendList: sect.gnabar_iNas = 0.007*fNa; sect.Frec_iNas = 1.0
             for sect in self.ApicList: sect.gnabar_iNas = 0.007*fNa; sect.Frec_iNas = 1.0
 
-    def set_synaptic_properties(self, SynapticFactors):
-        """
-        Set synaptic properties written in 
-        *../LCHhm-neurondata/synaptic_properties.txt* (Bezaire2016)
-        
-        Each line of the file has a list of all the necessary
-        properties to configure synapses. Let's take a line as
-        an example:
-
-            Eg.: (1) **CA3** (2) **6209** (3) **4** (4) **50** (5) **300** (6) **1.5** (7) **0** (8) **0.5** (9) **3** (10) **0.0002** (11) **0.5** (12) **276** (13) **5** (14) **3**
-
-        These parameters are, in order:
-
-        1. Name of input.
-            Eg.: CA3 
-
-        2. Number of NumBoutons.
-            Eg.: 6209
-
-        3. Type of ``Sections`` where to place NumBoutons.
-            Eg.: 4, that is apical dendrites
-
-        4. Minimum distance to soma (positive to apical, negative to Basal).
-            Eg.: 50 um from soma, that would be proximal SR
-
-        5. Maximum distance to soma (positive to apical, negative to Basal).
-            Eg.: 300 um from soma, that would be distal SR
-
-        6. Firing frequency (Hz).
-            Eg.: 1.5 Hz
-
-        7. Reversal potential (mV). Near 0mV would correspond to a glutamatergic input, while a -70mV to a GABAergic one.
-            Eg.: 0 mV, that is excitatory
-
-        8. Raising time constant (ms).
-            Eg.: 0.5 ms
-
-        9. Decaying time constant (ms).
-            Eg.: 3.0 ms
-
-        10. Maximum conductance (microsiemens, uS). This is later multiplied by the ``FinalFactors`` defined from the ``FactorsIndividual`` and the ``Experimental``.
-             Eg.: 0.0002 uS
-
-        11. Basal firing of the synaptic time probability distribution.
-             Eg.: 0.5
-
-        12. Theta Phase of maximum spiking probability.
-             Eg.: 276 deg
-
-        13. Left-shifting factor of the synaptic time probability distribution (A in the picture).
-             Eg.: 5
-
-        14. Right-shifting factor of the synaptic time probability distribution (B in the picture).
-             Eg.: 3
-
-        The last four parameters define the synaptic time probability distribution
-        through the :func:`LCNhm_functions.synaptic_time_probability_distribution`,
-        an asymmetric gaussian function. An example of the synaptic time probability
-        distribution alon 10 theta cycles, and a visual definition of the
-        ``Basal``, ``A`` and ``B`` parameters are shown in the image:
-
-        .. image:: ../sphinx-docs/_images/SynapseDistribution.png
-
-        In the case that :func:`LCNhm_configurationfile.SIMPROP_THETA_MODE` is ``False``,
-        the distribution will be homogeneous along time, being (6), the firing frequency,
-        the only parameter that will be taken into account.
-
-        So for each excitatory/inhibitory input:
-
-        1. An amount of (2) boutons are placed randomly along the neuron surface from (5) to (6)
-
-        2. Synapse internal dynamics are set given (7), (8), (9), (10) and (11)
-        
-        3. Synapses are activated randomly with the probability distribution given by :func:`LCNhm_functions.synaptic_time_probability_distribution`
-
-
-        Final factors are defined as the multiplication of the *individual* factor by the *experiment* factor, so that
-
-            .. code-block:: python
-
-                FinalFactors = FactorsIndividual * FactorsExperiment
-                fNa, fA, fAHPs, fC, fKDR, fM, fCaL, fCaT, fHCN, fL, Ra = FinalFactors
-
-        It is crucial to set the *individual* and *experiment* factors in the required order
-
-        Parameters
-        ----------
-        SynapticFactors: List
-            * :const:`LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS` : Synaptic inputs to include in the cell
-
-            * :const:`LCNhm_configurationfile.CELLPROP_SYNAPTIC_EXPERIMENT` : Additional factor multiplying the following maximum conductances
-
-            * :const:`LCNhm_configurationfile.SIMPROP_THETA_MODE` : Set theta (``True``) or not (``False``)
-
-            * :const:`LCNhm_configurationfile.SIMPROP_THETA_PERIOD` : Theta period in milliseconds
-
-            * :const:`LCNhm_configurationfile.SIMPROP_START_TIME` : Lapse of time before starting the simulation in milliseconds
-
-            * :const:`LCNhm_configurationfile.SIMPROP_END_TIME` : Total duration of the simulation in milliseconds (:const:`LCNhm_configurationfile.SIMPROP_START_TIME` + :const:`LCNhm_configurationfile.SIMPROP_SIM_TIME`)
-
-        Returns
-        -------
-        SynDict: Dictionary
-            Dictionary with information of all synapses. For each input in :const:`LCNhm_configurationfile.CELLPROP_SYNAPTIC_INPUTS`,
-            
-            * ``SynSection``: NEURON ``Section`` and ``Location`` for each bouton
-
-            * ``SynPlaces``: Three spatial coordinates for each bouton
-
-            * ``SynTimes``: Time releases for each bouton
-
-            is stored
-
-        SynObjects: List
-            NEURON synaptic ``Exp2Syn`` objects (go to `Exp2Syn <https://www.neuron.yale.edu/neuron/static/py_doc/modelspec/programmatic/mechanisms/mech.html?highlight=exp2syn#Exp2Syn>`_ for more information)
-
-        NetConObjects: List
-            NEURON synaptic ``NetCon`` objects (go to `NetCon <https://www.neuron.yale.edu/neuron/static/py_doc/modelspec/programmatic/network/netcon.html?highlight=netcon>`_ for more information)
-
-        """
+    def set_synaptic_properties(self, SynapticFactors, DGiDGe):
         # CELLPROP_SYNAPTIC_INPUTS as SynInputs
         # CELLPROP_SYNAPTIC_EXPERIMENT as FactorsExperiment
         # SIMPROP_THETA_MODE as isTheta
@@ -827,6 +426,7 @@ class neuron_class(object):
                             SynDict[SynInput]['SynSection'] = []
                             SynDict[SynInput]['SynPlaces'] = []
                             SynDict[SynInput]['SynTimes'] = []
+                            SynDict[SynInput]['SynGs'] = []
                         # Make Int values
                         SynSection, NumBoutons = int(SynSection), int(NumBoutons)
                         # Number of synapse relases 
@@ -865,9 +465,23 @@ class neuron_class(object):
                             if isTheta:
                                 # If we are in theta mode, no-homogeneous distribution (given by synaptic_time_probability_distribution)
                                 TimeDistribution = synaptic_time_probability_distribution(PossibleTimes, Phase, [ThetaPeriod,BetaA,BetaB])
+                                if SynInput in ['CA3']:
+                                    modulation = np.array([PF_modulation(t, DGiDGe[1], lim1=400., lim2=tend-400., center=400.+(tend-2*400.)*0.72) for t in PossibleTimes])
+                                    TimeDistribution *= modulation*0.8
+                                    TimeDistribution += modulation*0.2*np.max(TimeDistribution)/np.max(modulation)
+                                elif SynInput in ['Axo', 'PV', 'CCK']:
+                                    TimeDistribution *= np.array([PF_modulation(t, DGiDGe[0], lim1=400., lim2=tend-400., center=400.+(tend-2*400.)*0.72) for t in PossibleTimes])
+                                    TimeDistribution *= modulation*0.8
+                                    TimeDistribution += modulation*0.2*np.max(TimeDistribution)/np.max(modulation)
                             else:
                                 # If we are not in theta mode, homogeneous distribution
                                 TimeDistribution = np.ones(len(PossibleTimes))/len(PossibleTimes)
+
+                            # Update number of synapses...
+                            NumSynapses *= np.sum(TimeDistribution)*0.25
+                            # ...and re-normalize time distribution
+                            TimeDistribution /= np.sum(TimeDistribution)
+
                             # Randomness in amount of number of synapses per bouton 
                             NumSynRand = 2.*NumSynapses*np.random.random(len(SynPlaces))
 
@@ -885,6 +499,7 @@ class neuron_class(object):
                                 SynObjects[-1].tau2 = Tau2 # (ms)
                                 # Taking spiking times from the above distribution
                                 SynTimes = np.sort(np.random.choice(PossibleTimes, size=int(NumSynRand[iBoutons]), p=TimeDistribution))
+                                SynGs = []
                                 # Making the synapse object
                                 for tsyn in SynTimes:
                                     # Connecting the synapse Object with the 'stimulator' NetCon
@@ -892,11 +507,13 @@ class neuron_class(object):
                                     NetConObjects[-1].delay = tsyn # ms
                                     NetConObjects[-1].threshold = -1000 # mV
                                     NetConObjects[-1].weight[0] = Gmax*(1 + (np.linalg.norm(xyzSec - xyzSoma)>240)) # uS (double on distal locations)
+                                    SynGs.append(NetConObjects[-1].weight[0])
                                 # Saving for future writing
                                 SynDict[SynInput]['SynSection'].append([sec,loc])
                                 SynDict[SynInput]['SynPlaces'].append(xyzSec)
                                 SynDict[SynInput]['SynTimes'].append(SynTimes)
-                 
+                                SynDict[SynInput]['SynGs'].append(np.array(SynGs))
+
         return SynDict, SynObjects, NetConObjects
 
     def set_current_clamp(self, CurrentFactors):
@@ -969,4 +586,3 @@ class neuron_class(object):
             current[-1].amp = Amplitudes[clamp] # nA
 
         return current
-
