@@ -16,12 +16,12 @@ so if:
 
 The current way to use the class would be:
 
-		Pyramidal = neuron_class_PFmodulation(MorphoName = CELLPROP_MORPHOLOGY,
-								 IntrinsicFactors = IntrinsicFactors,
-								 SynapticFactors = SynapticFactors,
-								 CurrentFactors = CurrentFactors,
-								 DirLocation = DIR_LOCATION,
-								 DGiDGe = [DGi, DGe]) 
+	Pyramidal = neuron_class_PFmodulation(MorphoName = CELLPROP_MORPHOLOGY,
+							 IntrinsicFactors = IntrinsicFactors,
+							 SynapticFactors = SynapticFactors,
+							 CurrentFactors = CurrentFactors,
+							 DirLocation = DIR_LOCATION,
+							 DGiDGe = [DGi, DGe]) 
 
 # Documentation
 
