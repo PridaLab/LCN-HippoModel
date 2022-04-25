@@ -7,9 +7,12 @@ As an addition to a constant theta state, we have added this branch in which a m
 	ΔG = ((max G inside PF) - (constant G outside PF)) / (constant G outside PF)
 
 so if: 
-	* `ΔG = 0`: No modulation
-	* `ΔG = 1`: Conductance doubles inside place field
-	* `ΔG = -1`: Conductance decreases to 0 inside place field
+	
+* `ΔG = 0`: No modulation
+
+* `ΔG = 1`: Conductance doubles inside place field
+
+* `ΔG = -1`: Conductance decreases to 0 inside place field
 
 The current way to use the class would be:
 
