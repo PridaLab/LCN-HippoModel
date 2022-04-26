@@ -47,7 +47,7 @@ As an addition to a constant theta state, [here](https://github.com/PridaLab/LCN
 
 Full documentation of the code can be found here:
 
-https://acnavasolive.github.io/LCN-HippoModel/
+https://pridalab.github.io/LCN-HippoModel/
 
 
 # Full article
